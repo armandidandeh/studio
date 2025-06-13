@@ -52,7 +52,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SocialLinks />
           <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Alex Johnson. All rights reserved.
+            &copy; {new Date().getFullYear()} Arman Didandeh. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/70 mt-1">
             Built with Next.js and Tailwind CSS.

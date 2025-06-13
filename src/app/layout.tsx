@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'DataSage Portfolio',
+  title: 'Arman Didandeh Portfolio',
   description: 'A professional portfolio showcasing skills and projects.',
 };
 

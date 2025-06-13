@@ -18,7 +18,7 @@ export default function ProfileHeader() {
         </div>
         <div>
           <h1 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold text-primary">
-            Alex Johnson
+            Arman Didandeh
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mt-2">
             Full-Stack Developer & UI/UX Enthusiast

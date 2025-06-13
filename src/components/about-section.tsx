@@ -10,7 +10,7 @@ export default function AboutSection() {
       </CardHeader>
       <CardContent className="space-y-4 text-lg text-foreground/80 leading-relaxed">
         <p>
-          Hello! I&apos;m Alex Johnson, a passionate and results-driven Full-Stack Developer with a keen eye for UI/UX design. 
+          Hello! I&apos;m Arman Didandeh, a passionate and results-driven Full-Stack Developer with a keen eye for UI/UX design. 
           With several years of experience in crafting modern, responsive, and user-friendly web applications, 
           I thrive on turning complex problems into elegant digital solutions.
         </p>
