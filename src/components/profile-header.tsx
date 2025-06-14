@@ -9,9 +9,9 @@ export default function ProfileHeader() {
           <Image
             src="https://storage.googleapis.com/genai-studio-public-images/user-provided/f689935b-3126-489a-820d-179a37395a1b.png"
             alt="Arman Didandeh - Professional Headshot"
-            width={160}
-            height={160}
-            className="object-cover w-full h-full"
+            fill
+            className="object-cover" 
+            sizes="(max-width: 640px) 8rem, (max-width: 768px) 9rem, 10rem" 
             data-ai-hint="profile picture man"
             priority
           />
