@@ -10,8 +10,8 @@ export default function ProfileHeader() {
             src="https://www.dropbox.com/scl/fi/0i3e2ail91qm82tcm8swz/DSC_0278.JPG?rlkey=ba5bzu6r9f7wierykax5leo0f&st=ybcexcsn&dl=1"
             alt="Arman Didandeh - Professional Headshot"
             fill
-            className="object-cover" 
-            sizes="(max-width: 640px) 8rem, (max-width: 768px) 9rem, 10rem" 
+            className="object-cover"
+            sizes="(max-width: 640px) 8rem, (max-width: 768px) 9rem, 10rem"
             data-ai-hint="profile picture man"
             priority
           />
@@ -21,7 +21,7 @@ export default function ProfileHeader() {
             Arman Didandeh
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mt-2">
-            Full-Stack Developer & UI/UX Enthusiast
+            Building AI products, one data pipeline at a time.
           </p>
         </div>
       </CardContent>
