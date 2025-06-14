@@ -10,17 +10,7 @@ export default function AboutSection() {
       </CardHeader>
       <CardContent className="space-y-4 text-lg text-foreground/80 leading-relaxed">
         <p>
-          Hello! I&apos;m Arman Didandeh, a passionate and results-driven Full-Stack Developer with a keen eye for UI/UX design. 
-          With several years of experience in crafting modern, responsive, and user-friendly web applications, 
-          I thrive on turning complex problems into elegant digital solutions.
-        </p>
-        <p>
-          My journey in tech began with a fascination for how software can transform ideas into reality. 
-          This led me to master a range of technologies, always eager to learn and adapt to the ever-evolving landscape of web development. 
-          I believe in the power of collaboration, continuous improvement, and creating products that not only function flawlessly but also provide delightful user experiences.
-        </p>
-        <p>
-          When I&apos;m not coding, you can find me exploring new design trends, contributing to open-source projects, or hiking in the great outdoors.
+          Experienced technologist, with hands-on roots in back-end dev and research background in machine learning (semi-supervised learning, specifically), who is very interested in AI-enabled data products and as a result, data pipelines, data/MLOps, and Human-centred AI.
         </p>
       </CardContent>
     </Card>
