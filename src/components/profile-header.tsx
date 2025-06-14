@@ -7,12 +7,12 @@ export default function ProfileHeader() {
       <CardContent className="p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row items-center text-center sm:text-left gap-6">
         <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg border-4 border-primary">
           <Image
-            src="https://placehold.co/160x160.png"
+            src="https://storage.googleapis.com/genai-studio-public-images/user-provided/f689935b-3126-489a-820d-179a37395a1b.png"
             alt="Arman Didandeh - Professional Headshot"
             width={160}
             height={160}
             className="object-cover w-full h-full"
-            data-ai-hint="profile picture"
+            data-ai-hint="profile picture man"
             priority
           />
         </div>
