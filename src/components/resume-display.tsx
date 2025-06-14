@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Download } from 'lucide-react';
 
 export default function ResumeDisplay() {
+  const resumeUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
+
   return (
     <Card className="shadow-lg animate-fade-in" style={{animationDelay: '1.0s'}}>
       <CardHeader className="flex flex-row items-center gap-3">
@@ -28,9 +30,15 @@ export default function ResumeDisplay() {
               </p>
               <div className="bg-muted p-6 rounded-lg shadow-inner min-h-[200px] flex flex-col items-center justify-center text-center">
                 <FileText className="w-16 h-16 text-muted-foreground mb-4" />
-                <p className="text-muted-foreground mb-4">Resume preview will be embedded here.</p>
-                <Button variant="outline" className="bg-accent/10 hover:bg-accent/20 text-accent-foreground border-accent hover:border-accent/80">
-                  <Download className="mr-2 h-4 w-4" /> Download PDF
+                <p className="text-muted-foreground mb-4">Download my resume for a detailed overview.</p>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  className="bg-accent/10 hover:bg-accent/20 text-accent-foreground border-accent hover:border-accent/80"
+                >
+                  <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="mr-2 h-4 w-4" /> Download PDF
+                  </a>
                 </Button>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
