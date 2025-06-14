@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         hostname: 'storage.googleapis.com',
         port: '',
         pathname: '/genai-studio-public-images/user-provided/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.dropbox.com',
+        port: '',
+        pathname: '/scl/fi/**',
       }
     ],
   },
