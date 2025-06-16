@@ -17,6 +17,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from 'lucide-react';
+import { useState } from "react";
+import { sendContactEmail, type ContactEmailInput } from '@/ai/flows/send-contact-email-flow';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -26,6 +28,10 @@ const formSchema = z.object({
 
 export default function ContactForm() {
   const { toast } = useToast();
+  const [submissionMessage, setSubmissionMessage] = useState<string | null>(null);
+  const [submissionMessageType, setSubmissionMessageType] = useState<'success' | 'error'>('success');
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,15 +42,37 @@ export default function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(values);
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-      variant: "default",
-    });
-    form.reset();
+    setSubmissionMessage(null);
+
+    try {
+      const result = await sendContactEmail(values as ContactEmailInput);
+
+      if (result.success) {
+        form.reset();
+        setSubmissionMessage("Thank you for reaching out. I'll get back to you soon.");
+        setSubmissionMessageType('success');
+        setTimeout(() => setSubmissionMessage(null), 5000); // Clear message after 5 seconds
+      } else {
+        const errorMessage = result.error || "Could not send your message. Please try again later.";
+        setSubmissionMessage(errorMessage);
+        setSubmissionMessageType('error');
+        toast({
+          title: "Error Sending Message",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      const errorMessage = "An unexpected error occurred. Please try again.";
+      setSubmissionMessage(errorMessage);
+      setSubmissionMessageType('error');
+      toast({
+        title: "Submission Error",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -109,6 +137,11 @@ export default function ContactForm() {
             </Button>
           </form>
         </Form>
+        {submissionMessage && (
+          <p className={`mt-4 text-center text-sm ${submissionMessageType === 'error' ? 'text-destructive' : 'text-primary'}`}>
+            {submissionMessage}
+          </p>
+        )}
       </CardContent>
     </Card>
   );
