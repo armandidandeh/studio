@@ -26,22 +26,21 @@ interface Experience {
 
 const workExperiencesData: Experience[] = [
   {
-    company: "MightyHive (pre-merger); Monks (post-merger)",
-    timelineDateLabel: "Feb '21 - Present",
-    roles: [
-      { title: "VP, Data & AI Products", dates: "Jan '25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
-      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan '22 - Dec '24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Director, Data Solutions", dates: "Aug '21 - Jan '22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Director, Data Solutions", dates: "Feb '21 - Aug '21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
-    ],
-  },
-  {
     company: "Naya Labs",
     isContractor: true,
     isPartTime: true,
     timelineDateLabel: "May '22 - Dec '22",
     roles: [
       { title: "AI/ML Strategist", dates: "May '22 - Dec '22", description: "Advised on building data and AI products; identified product-market fit." },
+    ],
+  },
+  {
+    company: "FGC Health",
+    isContractor: true,
+    isPartTime: true,
+    timelineDateLabel: "May '22 - Aug '22",
+    roles: [
+      { title: "Data Strategist", dates: "May '22 - Aug '22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
     ],
   },
   {
@@ -55,12 +54,22 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
-    company: "FGC Health",
+    company: "MightyHive (pre-merger); Monks (post-merger)",
+    timelineDateLabel: "Feb '21 - Present",
+    roles: [
+      { title: "VP, Data & AI Products", dates: "Jan '25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
+      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan '22 - Dec '24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Aug '21 - Jan '22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Feb '21 - Aug '21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
+    ],
+  },
+  {
+    company: "Linggo",
     isContractor: true,
     isPartTime: true,
-    timelineDateLabel: "May '22 - Aug '22",
+    timelineDateLabel: "Nov '19 - Apr '20",
     roles: [
-      { title: "Data Strategist", dates: "May '22 - Aug '22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
+      { title: "Fractional CTO", dates: "Nov '19 - Apr '20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
     ],
   },
   {
@@ -79,15 +88,6 @@ const workExperiencesData: Experience[] = [
       { title: "Manager, Data Science Innovation", dates: "Sep '18 - Feb '20", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
       { title: "Senior Consultant, Data Science", dates: "May '18 - Sep '18", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
       { title: "Consultant, Data Science", dates: "Sep '17 - May '18", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
-    ],
-  },
-  {
-    company: "Linggo",
-    isContractor: true,
-    isPartTime: true,
-    timelineDateLabel: "Nov '19 - Apr '20",
-    roles: [
-      { title: "Fractional CTO", dates: "Nov '19 - Apr '20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
     ],
   },
   {
@@ -129,20 +129,20 @@ export default function WorkExperienceSection() {
 
             <div className="space-y-10 relative z-10">
               {workExperiencesData.map((experience, expIndex) => (
-                <div key={expIndex} className="relative">
+                <div key={expIndex} className="relative pl-8 md:pl-12"> {/* Parent relative, child absolute */}
                   <div 
-                    className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-1.5 left-2 md:left-[0.875rem]" 
+                    className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-1.5 left-[-0.125rem] md:left-[-0.125rem]"
                   />
                   
                   <div 
-                    className="absolute top-[calc(theme(spacing.1.5)_-_1px)] left-8 md:left-10 z-10"
+                     className="absolute top-[calc(theme(spacing.1)_-_1px)] left-6 z-10 md:left-8"
                   >
                     <p className="text-xs text-muted-foreground whitespace-nowrap">
                       {experience.timelineDateLabel}
                     </p>
                   </div>
                   
-                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-[10rem] md:ml-[11rem]">
+                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-12 md:ml-16">
                     <CardHeader className="pb-4 pt-5">
                       <CardTitle className="text-xl font-headline text-primary">
                         {experience.company}
