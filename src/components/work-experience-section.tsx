@@ -114,44 +114,49 @@ export default function WorkExperienceSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
-          <div className="space-y-8">
-            {workExperiencesData.map((experience, expIndex) => (
-              <div key={expIndex} className="flex">
-                <div className="flex flex-col items-center mr-6">
-                  <div className="w-4 h-4 bg-accent rounded-full ring-4 ring-background z-10 mt-1" />
-                  {expIndex < workExperiencesData.length -1 && (
-                    <div className="w-0.5 flex-grow bg-primary/30" />
-                  )}
-                </div>
-                <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-xl font-headline text-primary">
-                      {experience.company}
-                      {(experience.isContractor || experience.isPartTime) && (
-                        <span className="text-sm font-normal text-muted-foreground ml-2">
-                          ({experience.isContractor && "Contractor"}{experience.isContractor && experience.isPartTime && ", "}{experience.isPartTime && "Part-time"})
-                        </span>
-                      )}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {experience.roles.map((role, roleIndex) => (
-                      <div key={roleIndex}>
-                        <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                        <div className="flex items-center text-xs text-muted-foreground mt-0.5 mb-1">
-                          <CalendarDays className="w-3 h-3 mr-1.5" />
-                          <span>{role.dates}</span>
+          <div className="relative">
+            {/* The single vertical timeline */}
+            <div className="absolute left-3 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0" />
+
+            <div className="space-y-10 relative z-10"> {/* Container for all experiences, ensures content is above the line */}
+              {workExperiencesData.map((experience, expIndex) => (
+                <div key={expIndex} className="relative pl-10"> {/* Each experience item, pl-10 provides space for dot and line */}
+                  {/* Dot on the timeline, aligned with the line */}
+                  <div 
+                    className="absolute left-3 top-2.5 w-4 h-4 bg-accent rounded-full ring-4 ring-background z-20"
+                    style={{ transform: 'translateX(-50%)' }} /* Centers the dot on the 'left-3' line */
+                  />
+                  
+                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-4 pt-5">
+                      <CardTitle className="text-xl font-headline text-primary">
+                        {experience.company}
+                        {(experience.isContractor || experience.isPartTime) && (
+                          <span className="text-sm font-normal text-muted-foreground ml-2">
+                            ({experience.isContractor && "Contractor"}{experience.isContractor && experience.isPartTime && ", "}{experience.isPartTime && "Part-time"})
+                          </span>
+                        )}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4 pb-5">
+                      {experience.roles.map((role, roleIndex) => (
+                        <div key={roleIndex}>
+                          <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                          <div className="flex items-center text-xs text-muted-foreground mt-1 mb-1.5">
+                            <CalendarDays className="w-3.5 h-3.5 mr-2 text-primary/70" />
+                            <span>{role.dates}</span>
+                          </div>
+                          <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
                         </div>
-                        <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <InnerAccordion type="single" collapsible className="w-full mt-8 pt-0 border-none">
+          <InnerAccordion type="single" collapsible className="w-full mt-10 pt-0 border-none">
             <InnerAccordionItem value="download-resume" className="border-none">
               <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-2 text-foreground/90 hover:no-underline">
                 Download My Resume
@@ -159,7 +164,7 @@ export default function WorkExperienceSection() {
               <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
                 <div className="flex items-center justify-between">
                   <p className="mb-0 flex-grow mr-4">
-                    Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable. Please use the button to download and view my full resume.
+                    Please use the button to download and view my full resume.
                   </p>
                   <Button 
                     asChild
@@ -178,5 +183,4 @@ export default function WorkExperienceSection() {
     </AccordionItem>
   );
 }
-
     
