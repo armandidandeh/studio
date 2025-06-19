@@ -31,16 +31,15 @@ export default function AboutSection() {
               <InnerAccordionTrigger className="text-xl font-medium hover:text-accent transition-colors py-3 text-foreground/90">
                 View My Professional Experience & Resume
               </InnerAccordionTrigger>
-              <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80 space-y-6">
-                <p>
-                  Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable.
-                  Please use the button below to download and view my full resume.
-                </p>
-                
-                <div className="my-4">
+              <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
+                <div className="flex items-center justify-between">
+                  <p className="flex-grow mr-4">
+                    Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable.
+                    Please use the button below to download and view my full resume.
+                  </p>
                   <Button 
                     asChild
-                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105"
+                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 flex-shrink-0"
                   >
                     <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
                       <Download className="mr-2 h-4 w-4" /> Download PDF
@@ -55,3 +54,4 @@ export default function AboutSection() {
     </AccordionItem>
   );
 }
+
