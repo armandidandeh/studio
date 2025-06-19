@@ -37,9 +37,8 @@ export default function ResumeDisplay() {
                 
                 <div className="my-4">
                   <Button 
-                    asChild 
-                    variant="outline" 
-                    className="bg-accent/10 hover:bg-accent/20 text-accent-foreground border-accent hover:border-accent/80"
+                    asChild
+                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105"
                   >
                     <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
                       <Download className="mr-2 h-4 w-4" /> Download PDF
