@@ -21,74 +21,19 @@ interface Experience {
   isContractor?: boolean;
   isPartTime?: boolean;
   roles: Role[];
-  timelineDateLabel: string; // For display near the dot, e.g., "May '12 - Dec '16"
+  timelineDateLabel: string; 
 }
 
-// Data is now manually sorted chronologically by the start of the first role.
+// Data is now manually sorted in REVERSE chronological order (most recent at the top).
 const workExperiencesData: Experience[] = [
-  {
-    company: "Freelance",
-    isContractor: true,
-    isPartTime: true,
-    timelineDateLabel: "May '12 - Dec '16",
-    roles: [
-      { title: "Cloud & Data Consultant", dates: "May 12 - Dec 16", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
-    ],
-  },
-  {
-    company: "Sport-Travel",
-    isContractor: true,
-    isPartTime: true,
-    timelineDateLabel: "May '17 - May '18",
-    roles: [
-      { title: "Manager, Analytics & Software Solutions", dates: "May 17 - May 18", description: "Hired and mentored an in-house development team; built a sports competition management system with integrations into an existing accommodations system, allowing team owners to register their teams’ full roster, plan for leagues, manage trips’ transportation and hotels, and get key notifications." },
-    ],
-  },
-  {
-    company: "Deloitte Canada",
-    timelineDateLabel: "Sep '17 - Nov '20",
-    roles: [
-      { title: "Consultant, Data Science", dates: "Sep 17 - May 18", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
-      { title: "Senior Consultant, Data Science", dates: "May 18 - Sep 18", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
-      { title: "Manager, Data Science Innovation", dates: "Sep 18 - Feb 20", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
-      { title: "Senior Manager, Data Science Innovation & AI Strategy", dates: "Feb 20 - Nov 20", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
-    ],
-  },
-  {
-    company: "SharpestMinds",
-    isPartTime: true,
-    timelineDateLabel: "Nov '18 - Dec '21",
-    roles: [
-      { title: "Mentor, Data Science-Data Engineering-MLOps", dates: "Nov 18 - Dec 21", description: "Mentored junior and senior practitioners in building a portfolio and making a career path." },
-    ],
-  },
-  {
-    company: "Linggo",
-    isContractor: true,
-    isPartTime: true,
-    timelineDateLabel: "Nov '19 - Apr '20",
-    roles: [
-      { title: "Fractional CTO", dates: "Nov 19 - Apr 20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
-    ],
-  },
   {
     company: "MightyHive (pre-merger); Monks (post-merger)",
     timelineDateLabel: "Feb '21 - Present",
     roles: [
-      { title: "Director, Data Solutions", dates: "Feb 21 - Aug 21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Director, Data Solutions", dates: "Aug 21 - Jan 22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan 22 - Dec 24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "VP, Data & AI Products", dates: "Jan 25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
-    ],
-  },
-  {
-    company: "PredictNow.ai",
-    isContractor: true,
-    isPartTime: true,
-    timelineDateLabel: "Aug '21 - Dec '22",
-    roles: [
-      { title: "Fractional CTO", dates: "Aug 21 - May 22", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
-      { title: "Cloud Infrastructure & MLOps Advisor", dates: "Aug 22 - Dec 22", description: "Stayed on as an advisor to expand the product." },
+      { title: "VP, Data & AI Products", dates: "Jan '25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
+      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan '22 - Dec '24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Aug '21 - Jan '22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Feb '21 - Aug '21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
     ],
   },
   {
@@ -97,7 +42,17 @@ const workExperiencesData: Experience[] = [
     isPartTime: true,
     timelineDateLabel: "May '22 - Dec '22",
     roles: [
-      { title: "AI/ML Strategist", dates: "May 22 - Dec 22", description: "Advised on building data and AI products; identified product-market fit." },
+      { title: "AI/ML Strategist", dates: "May '22 - Dec '22", description: "Advised on building data and AI products; identified product-market fit." },
+    ],
+  },
+  {
+    company: "PredictNow.ai",
+    isContractor: true,
+    isPartTime: true,
+    timelineDateLabel: "Aug '21 - Dec '22",
+    roles: [
+      { title: "Cloud Infrastructure & MLOps Advisor", dates: "Aug '22 - Dec '22", description: "Stayed on as an advisor to expand the product." },
+      { title: "Fractional CTO", dates: "Aug '21 - May '22", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
     ],
   },
   {
@@ -106,7 +61,52 @@ const workExperiencesData: Experience[] = [
     isPartTime: true,
     timelineDateLabel: "May '22 - Aug '22",
     roles: [
-      { title: "Data Strategist", dates: "May 22 - Aug 22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
+      { title: "Data Strategist", dates: "May '22 - Aug '22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
+    ],
+  },
+  {
+    company: "SharpestMinds",
+    isPartTime: true,
+    timelineDateLabel: "Nov '18 - Dec '21",
+    roles: [
+      { title: "Mentor, Data Science-Data Engineering-MLOps", dates: "Nov '18 - Dec '21", description: "Mentored junior and senior practitioners in building a portfolio and making a career path." },
+    ],
+  },
+  {
+    company: "Deloitte Canada",
+    timelineDateLabel: "Sep '17 - Nov '20",
+    roles: [
+      { title: "Senior Manager, Data Science Innovation & AI Strategy", dates: "Feb '20 - Nov '20", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
+      { title: "Manager, Data Science Innovation", dates: "Sep '18 - Feb '20", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
+      { title: "Senior Consultant, Data Science", dates: "May '18 - Sep '18", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
+      { title: "Consultant, Data Science", dates: "Sep '17 - May '18", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
+    ],
+  },
+  {
+    company: "Linggo",
+    isContractor: true,
+    isPartTime: true,
+    timelineDateLabel: "Nov '19 - Apr '20",
+    roles: [
+      { title: "Fractional CTO", dates: "Nov '19 - Apr '20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
+    ],
+  },
+  {
+    company: "Sport-Travel",
+    isContractor: true,
+    isPartTime: true,
+    timelineDateLabel: "May '17 - May '18",
+    roles: [
+      { title: "Manager, Analytics & Software Solutions", dates: "May '17 - May '18", description: "Hired and mentored an in-house development team; built a sports competition management system with integrations into an existing accommodations system, allowing team owners to register their teams’ full roster, plan for leagues, manage trips’ transportation and hotels, and get key notifications." },
+    ],
+  },
+  {
+    company: "Freelance",
+    isContractor: true,
+    isPartTime: true,
+    timelineDateLabel: "May '12 - Dec '16",
+    roles: [
+      { title: "Cloud & Data Consultant", dates: "May '12 - Dec '16", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
     ],
   },
 ];
@@ -127,6 +127,7 @@ export default function WorkExperienceSection() {
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
           <div className="relative">
             {/* The single vertical timeline line */}
+            {/* Adjusted top/bottom padding to better align with content if needed */}
             <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
 
             <div className="space-y-10 relative z-10"> {/* Container for all experiences */}
@@ -137,11 +138,12 @@ export default function WorkExperienceSection() {
                     <div 
                       className="w-4 h-4 bg-accent rounded-full ring-4 ring-background z-20"
                     />
+                    {/* Date label for the company engagement */}
                     <p className="text-xs text-muted-foreground mt-1 whitespace-nowrap">{experience.timelineDateLabel}</p>
                   </div>
                   
                   {/* Experience Card */}
-                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0"> {/* Added min-w-0 for flex child */}
+                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0">
                     <CardHeader className="pb-4 pt-5">
                       <CardTitle className="text-xl font-headline text-primary">
                         {experience.company}
