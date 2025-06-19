@@ -33,7 +33,6 @@ export default function AboutSection() {
               </InnerAccordionTrigger>
               <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80 space-y-6">
                 <p>
-                  A concise summary of my professional background, skills, and achievements. 
                   Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable.
                   Please use the button below to download and view my full resume.
                 </p>
