@@ -24,7 +24,6 @@ interface Experience {
   timelineDateLabel: string; 
 }
 
-// Data is now manually sorted in REVERSE chronological order (most recent at the top).
 const workExperiencesData: Experience[] = [
   {
     company: "MightyHive (pre-merger); Monks (post-merger)",
@@ -126,23 +125,24 @@ export default function WorkExperienceSection() {
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
           <div className="relative">
-            {/* The single vertical timeline line */}
             <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
 
-            <div className="space-y-10 relative z-10"> {/* Container for all experiences */}
+            <div className="space-y-10 relative z-10">
               {workExperiencesData.map((experience, expIndex) => (
-                <div key={expIndex} className="relative flex items-start">
-                  {/* Dot on the timeline and date label */}
-                  <div className="flex flex-col items-center mr-4 md:mr-6 pt-1.5 shrink-0">
-                    <div 
-                      className="w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20" 
-                    />
-                    {/* Date label for the company engagement */}
-                    <p className="text-xs text-muted-foreground mt-1 whitespace-nowrap">{experience.timelineDateLabel}</p>
+                <div key={expIndex} className="relative">
+                  <div 
+                    className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-1.5 left-2 md:left-[0.875rem]" 
+                  />
+                  
+                  <div 
+                    className="absolute top-[calc(theme(spacing.1.5)_-_1px)] left-8 md:left-10 z-10"
+                  >
+                    <p className="text-xs text-muted-foreground whitespace-nowrap">
+                      {experience.timelineDateLabel}
+                    </p>
                   </div>
                   
-                  {/* Experience Card */}
-                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0">
+                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-[10rem] md:ml-[11rem]">
                     <CardHeader className="pb-4 pt-5">
                       <CardTitle className="text-xl font-headline text-primary">
                         {experience.company}
