@@ -1,7 +1,7 @@
+
 import ProfileHeader from '@/components/profile-header';
 import SkillsShowcase from '@/components/skills-showcase';
 import AboutSection from '@/components/about-section';
-import PortfolioGallery from '@/components/portfolio-gallery';
 import SocialLinks from '@/components/social-links';
 import ContactForm from '@/components/contact-form';
 import ResumeDisplay from '@/components/resume-display';
@@ -26,12 +26,6 @@ export default function Home() {
 
           <section id="skills">
             <SkillsShowcase />
-          </section>
-
-          <Separator className="my-8 md:my-12 bg-primary/20" />
-
-          <section id="portfolio">
-            <PortfolioGallery />
           </section>
 
           <Separator className="my-8 md:my-12 bg-primary/20" />
