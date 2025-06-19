@@ -127,7 +127,6 @@ export default function WorkExperienceSection() {
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
           <div className="relative">
             {/* The single vertical timeline line */}
-            {/* Adjusted top/bottom padding to better align with content if needed */}
             <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
 
             <div className="space-y-10 relative z-10"> {/* Container for all experiences */}
@@ -136,7 +135,7 @@ export default function WorkExperienceSection() {
                   {/* Dot on the timeline and date label */}
                   <div className="flex flex-col items-center mr-4 md:mr-6 pt-1.5 shrink-0">
                     <div 
-                      className="w-4 h-4 bg-accent rounded-full ring-4 ring-background z-20"
+                      className="w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20" 
                     />
                     {/* Date label for the company engagement */}
                     <p className="text-xs text-muted-foreground mt-1 whitespace-nowrap">{experience.timelineDateLabel}</p>
