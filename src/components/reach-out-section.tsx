@@ -20,9 +20,9 @@ export default function ReachOutSection() {
           <p className="mb-6">
             Have a project in mind or just want to say hi? Feel free to reach out to me on LinkedIn.
           </p>
-          <Button 
-            asChild 
-            className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-sm transition-transform hover:scale-105 text-md py-3 px-4"
+          <Button
+            asChild
+            className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 text-md py-3 px-4"
           >
             <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
               <Linkedin className="mr-2 h-5 w-5" /> Visit my LinkedIn Profile

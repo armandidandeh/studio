@@ -2,11 +2,15 @@
 import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
-const socialLinksData = [
-  { id: 'linkedin', name: 'LinkedIn', url: 'https://www.linkedin.com/in/arman-didandeh/', icon: <Linkedin className="h-6 w-6" /> },
+const socialLinksData: { id: string; name: string; url: string; icon: JSX.Element }[] = [
+  // LinkedIn link removed as per user request
 ];
 
 export default function SocialLinks() {
+  if (socialLinksData.length === 0) {
+    return null; 
+  }
+
   return (
     <div className="flex justify-center space-x-4 py-6 animate-fade-in" style={{animationDelay: '1.2s'}}>
       {socialLinksData.map((link) => (
