@@ -5,7 +5,6 @@ import AboutSection from '@/components/about-section';
 import SocialLinks from '@/components/social-links';
 import ContactForm from '@/components/contact-form';
 import ResumeDisplay from '@/components/resume-display';
-import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
   return (
@@ -17,24 +16,18 @@ export default function Home() {
       </header>
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="space-y-6 md:space-y-8 lg:space-y-10">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
           <section id="about">
             <AboutSection />
           </section>
           
-          <Separator className="my-4 md:my-6 bg-primary/20" />
-
           <section id="skills">
             <SkillsShowcase />
           </section>
-
-          <Separator className="my-4 md:my-6 bg-primary/20" />
           
           <section id="resume">
             <ResumeDisplay />
           </section>
-
-          <Separator className="my-4 md:my-6 bg-primary/20" />
 
           <section id="contact">
             <ContactForm />
