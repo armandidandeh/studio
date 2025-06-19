@@ -3,7 +3,7 @@ import ProfileHeader from '@/components/profile-header';
 import SkillsShowcase from '@/components/skills-showcase';
 import AboutSection from '@/components/about-section';
 import SocialLinks from '@/components/social-links';
-import ContactForm from '@/components/contact-form';
+import ReachOutSection from '@/components/reach-out-section';
 
 import {
   Accordion
@@ -22,7 +22,7 @@ export default function Home() {
         <Accordion type="single" defaultValue="about" collapsible className="w-full">
           <AboutSection />
           <SkillsShowcase />
-          <ContactForm />
+          <ReachOutSection />
         </Accordion>
       </main>
 
