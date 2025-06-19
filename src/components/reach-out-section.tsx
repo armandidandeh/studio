@@ -17,22 +17,23 @@ export default function ReachOutSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-0 text-lg text-foreground/80 leading-relaxed">
-          <p className="mb-6">
-            Have a project in mind or just want to say hi? Feel free to reach out to me on LinkedIn.
-          </p>
-          <Button
-            asChild
-            size="icon"
-            className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 rounded-full"
-            aria-label="Visit my LinkedIn Profile"
-          >
-            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
-              <Linkedin className="h-5 w-5" />
-            </a>
-          </Button>
+          <div className="flex items-center justify-between">
+            <p className="mb-0 flex-grow">
+              Have a project in mind or just want to say hi? Feel free to reach out to me on LinkedIn.
+            </p>
+            <Button
+              asChild
+              size="icon"
+              className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 rounded-full ml-4 flex-shrink-0"
+              aria-label="Visit my LinkedIn Profile"
+            >
+              <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </Button>
+          </div>
         </AccordionContent>
       </Card>
     </AccordionItem>
   );
 }
-
