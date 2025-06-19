@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
@@ -9,7 +10,7 @@ export default function ProfileHeader() {
         <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
           <ThemeToggleButton />
         </div>
-        <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg border-4 border-primary">
+        <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg">
           <Image
             src="https://www.dropbox.com/scl/fi/0i3e2ail91qm82tcm8swz/DSC_0278.JPG?rlkey=ba5bzu6r9f7wierykax5leo0f&st=ybcexcsn&dl=1"
             alt="Arman Didandeh - Professional Headshot"
