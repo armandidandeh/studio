@@ -27,7 +27,7 @@ export default function AboutSection() {
             Experienced technologist, with hands-on roots in back-end dev and research background in machine learning (semi-supervised learning, specifically), who is very interested in AI-enabled data products and as a result, data pipelines, data/MLOps, and Human-centred AI.
           </p>
           <InnerAccordion type="single" collapsible className="w-full">
-            <InnerAccordionItem value="professional-experience" className="border-t pt-4">
+            <InnerAccordionItem value="professional-experience" className="pt-4">
               <InnerAccordionTrigger className="text-xl font-medium hover:text-accent transition-colors py-3 text-foreground/90">
                 Recent Work Experience
               </InnerAccordionTrigger>
