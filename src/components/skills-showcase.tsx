@@ -1,18 +1,83 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, Palette, Database, Cloud } from 'lucide-react';
+import { 
+  Code, 
+  BarChart3, 
+  BrainCircuit, 
+  MessagesSquare, 
+  Layers, 
+  DatabaseZap,
+  Cloud, 
+  Warehouse, 
+  Database, 
+  GitMerge,
+  Wand2,
+  type LucideIcon
+} from 'lucide-react';
 
-const skillsData = [
-  { name: 'JavaScript', icon: <Code className="w-5 h-5" /> },
-  { name: 'React', icon: <Code className="w-5 h-5" /> },
-  { name: 'Next.js', icon: <Code className="w-5 h-5" /> },
-  { name: 'TypeScript', icon: <Code className="w-5 h-5" /> },
-  { name: 'Node.js', icon: <Code className="w-5 h-5" /> },
-  { name: 'Tailwind CSS', icon: <Palette className="w-5 h-5" /> },
-  { name: 'Firebase', icon: <Database className="w-5 h-5" /> },
-  { name: 'UI/UX Design', icon: <Palette className="w-5 h-5" /> },
-  { name: 'Cloud Computing', icon: <Cloud className="w-5 h-5" /> },
+interface SkillCategory {
+  title: string;
+  icon: LucideIcon;
+  skills: string[];
+}
+
+const categorizedSkills: SkillCategory[] = [
+  {
+    title: 'Programming Languages',
+    icon: Code,
+    skills: ['SQL', 'Python', 'Javascript', 'Java', 'R', 'C++'],
+  },
+  {
+    title: 'BI & Visualization',
+    icon: BarChart3,
+    skills: ['Looker', 'Tableau', 'Domo', 'Mode', 'D3.js'],
+  },
+  {
+    title: 'Data Science & ML Frameworks',
+    icon: BrainCircuit,
+    skills: ['scikit-learn', 'BQML', 'PyTorch', 'Keras/TensorFlow', 'Gephi', 'Octave'],
+  },
+  {
+    title: 'AI & NLP Toolsets',
+    icon: MessagesSquare,
+    skills: ['HuggingFace', 'LLMs (Llama, OpenAI, Anthropic, Cohere)', 'spaCy', 'Gensim', 'Stanford CoreNLP', 'fastText', 'Aylien'],
+  },
+  {
+    title: 'Deep Learning Tools',
+    icon: Layers,
+    skills: ['LlamaIndex', 'LangChain', 'Gradio', 'W&B', 'Lamini'],
+  },
+  {
+    title: 'Data Engineering',
+    icon: DatabaseZap,
+    skills: ['Dataform', 'dbt', 'Airflow (Cloud Composer, Astronomer, Dagster)', 'ETL/ELT (Rivery, Matillion, Talend, etc.)', 'Snowpark', 'Apache Spark/Databricks', 'Apache Storm', 'Solr', 'Oozie'],
+  },
+  {
+    title: 'Cloud Services',
+    icon: Cloud,
+    skills: ['GCP (Compute, GKE, App Engine, IAM, VertexAI, Cloud Run)', 'AWS (EC2, ECS, EKS, S3, Lambda, SageMaker, etc.)', 'Azure', 'Oracle Cloud', 'Databricks'],
+  },
+  {
+    title: 'Data Warehouses & CDPs',
+    icon: Warehouse,
+    skills: ['BigQuery', 'Snowflake', 'Redshift', 'Data Cleanrooms', 'CDPs'],
+  },
+  {
+    title: 'Database Systems',
+    icon: Database,
+    skills: ['RDBMS', 'NoSQL', 'GraphDB', 'NewSQL'],
+  },
+  {
+    title: 'CI/CD Tools',
+    icon: GitMerge,
+    skills: ['GitHub Actions', 'CircleCI', 'GCP Cloud Build', 'AWS CodePipeline'],
+  },
+  {
+    title: 'Code Productivity Tools',
+    icon: Wand2,
+    skills: ['Cursor', 'GitHub Copilot', 'Firebase Studio', 'OpenAI Codex', 'IntelliSense', 'TabNine'],
+  },
 ];
 
 export default function SkillsShowcase() {
@@ -21,19 +86,26 @@ export default function SkillsShowcase() {
       <CardHeader>
         <CardTitle className="font-headline text-3xl text-primary">Skills & Technologies</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap gap-3">
-          {skillsData.map((skill, index) => (
-            <Badge
-              key={index}
-              variant="secondary"
-              className="text-sm px-4 py-2 rounded-full shadow-sm transition-transform hover:scale-105 bg-slate-700 text-primary-foreground hover:bg-slate-600 cursor-default flex items-center gap-2"
-            >
-              {skill.icon}
-              {skill.name}
-            </Badge>
-          ))}
-        </div>
+      <CardContent className="space-y-6">
+        {categorizedSkills.map((category, categoryIndex) => (
+          <div key={categoryIndex} className="animate-fade-in" style={{animationDelay: `${0.4 + categoryIndex * 0.1}s`}}>
+            <h3 className="font-headline text-xl text-primary mb-3 flex items-center">
+              <category.icon className="w-6 h-6 mr-2 text-accent" />
+              {category.title}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <Badge
+                  key={skillIndex}
+                  variant="secondary"
+                  className="text-sm px-3 py-1 rounded-full shadow-sm transition-transform hover:scale-105 bg-slate-700 text-primary-foreground hover:bg-slate-600 cursor-default flex items-center gap-1.5"
+                >
+                  {skill}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        ))}
       </CardContent>
     </Card>
   );
