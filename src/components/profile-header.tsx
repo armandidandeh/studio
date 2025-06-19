@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
+import { ThemeToggleButton } from '@/components/theme-toggle-button';
 
 export default function ProfileHeader() {
   return (
     <Card className="overflow-hidden shadow-xl animate-fade-in" style={{animationDelay: '0.1s'}}>
-      <CardContent className="p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row items-center text-center sm:text-left gap-6">
+      <CardContent className="relative p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row items-center text-center sm:text-left gap-6">
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
+          <ThemeToggleButton />
+        </div>
         <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg border-4 border-primary">
           <Image
             src="https://www.dropbox.com/scl/fi/0i3e2ail91qm82tcm8swz/DSC_0278.JPG?rlkey=ba5bzu6r9f7wierykax5leo0f&st=ybcexcsn&dl=1"
