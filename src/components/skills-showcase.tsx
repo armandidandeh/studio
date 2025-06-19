@@ -1,12 +1,6 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { 
-  Accordion as InnerAccordion,
-  AccordionContent as InnerAccordionContent,
-  AccordionItem as InnerAccordionItem,
-  AccordionTrigger as InnerAccordionTrigger,
-} from "@/components/ui/accordion";
 import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { 
   Code, 
@@ -98,35 +92,26 @@ export default function SkillsShowcase() {
             <h2 className="font-headline text-3xl text-primary">Skills & Technologies</h2>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="p-6 pt-0">
-          <InnerAccordion type="single" collapsible className="w-full">
-            <InnerAccordionItem value="skills-list">
-              <InnerAccordionTrigger className="text-xl font-medium hover:text-accent transition-colors py-4">
-                Explore My Technical Skillset
-              </InnerAccordionTrigger>
-              <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80 space-y-6">
-                {categorizedSkills.map((category, categoryIndex) => (
-                  <div key={categoryIndex}>
-                    <h3 className="font-headline text-xl text-primary mb-3 flex items-center">
-                      <category.icon className="w-6 h-6 mr-2 text-accent" />
-                      {category.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, skillIndex) => (
-                        <Badge
-                          key={skillIndex}
-                          variant="secondary"
-                          className="text-sm px-3 py-1 rounded-full shadow-sm transition-transform hover:scale-105 bg-slate-700 text-primary-foreground hover:bg-slate-600 cursor-default flex items-center gap-1.5"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+        <AccordionContent className="p-6 pt-2 text-md text-foreground/80 space-y-6">
+          {categorizedSkills.map((category, categoryIndex) => (
+            <div key={categoryIndex}>
+              <h3 className="font-headline text-xl text-primary mb-3 flex items-center">
+                <category.icon className="w-6 h-6 mr-2 text-accent" />
+                {category.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill, skillIndex) => (
+                  <Badge
+                    key={skillIndex}
+                    variant="secondary"
+                    className="text-sm px-3 py-1 rounded-full shadow-sm transition-transform hover:scale-105 bg-slate-700 text-primary-foreground hover:bg-slate-600 cursor-default flex items-center gap-1.5"
+                  >
+                    {skill}
+                  </Badge>
                 ))}
-              </InnerAccordionContent>
-            </InnerAccordionItem>
-          </InnerAccordion>
+              </div>
+            </div>
+          ))}
         </AccordionContent>
       </Card>
     </AccordionItem>
