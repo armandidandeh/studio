@@ -1,3 +1,4 @@
+
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Code, Palette, Database, Cloud } from 'lucide-react';
@@ -26,7 +27,7 @@ export default function SkillsShowcase() {
             <Badge
               key={index}
               variant="secondary"
-              className="text-sm px-4 py-2 rounded-full shadow-sm transition-transform hover:scale-105 bg-accent/20 text-accent-foreground hover:bg-accent/40 cursor-default flex items-center gap-2"
+              className="text-sm px-4 py-2 rounded-full shadow-sm transition-transform hover:scale-105 bg-primary/10 text-primary-foreground hover:bg-primary/20 cursor-default flex items-center gap-2"
             >
               {skill.icon}
               {skill.name}
@@ -37,3 +38,4 @@ export default function SkillsShowcase() {
     </Card>
   );
 }
+
