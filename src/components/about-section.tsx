@@ -33,13 +33,13 @@ export default function AboutSection() {
               </InnerAccordionTrigger>
               <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
                 <div className="flex items-center justify-between">
-                  <p className="flex-grow mr-4">
+                  <p className="flex-grow">
                     Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable.
                     Please use the button below to download and view my full resume.
                   </p>
                   <Button 
                     asChild
-                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 flex-shrink-0"
+                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 flex-shrink-0 ml-4"
                   >
                     <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
                       <Download className="mr-2 h-4 w-4" /> Download PDF
@@ -54,4 +54,3 @@ export default function AboutSection() {
     </AccordionItem>
   );
 }
-
