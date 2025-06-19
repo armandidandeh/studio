@@ -2,6 +2,7 @@
 import ProfileHeader from '@/components/profile-header';
 import SkillsShowcase from '@/components/skills-showcase';
 import AboutSection from '@/components/about-section';
+import WorkExperienceSection from '@/components/work-experience-section';
 import SocialLinks from '@/components/social-links';
 import ReachOutSection from '@/components/reach-out-section';
 
@@ -21,6 +22,7 @@ export default function Home() {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 pb-8 md:pb-12">
         <Accordion type="single" defaultValue="about" collapsible className="w-full">
           <AboutSection />
+          <WorkExperienceSection />
           <SkillsShowcase />
           <ReachOutSection />
         </Accordion>
