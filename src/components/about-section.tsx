@@ -29,11 +29,9 @@ export default function AboutSection() {
           <InnerAccordion type="single" collapsible className="w-full">
             <InnerAccordionItem value="professional-experience" className="border-t pt-4">
               <InnerAccordionTrigger className="text-xl font-medium hover:text-accent transition-colors py-3 text-foreground/90">
-                View My Professional Experience & Resume
+                Recent Work Experience
               </InnerAccordionTrigger>
               <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
-                
-                <h3 className="text-lg font-semibold mt-4 mb-3 text-primary">Recent Work Experience</h3>
                 
                 <div className="mb-4">
                   <h4 className="font-semibold text-md text-foreground/90">MightyHive‌ (pre-merger); Monks‌‌ (post-merger)</h4>
@@ -128,7 +126,7 @@ export default function AboutSection() {
                   </ul>
                 </div>
 
-                <div className="mb-4"> {/* Removed mb-4 for the last item if it were the last visually, but new section below */}
+                <div className="mb-4">
                   <h4 className="font-semibold text-md text-foreground/90">Freelance (part-time; contractor)</h4>
                   <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
                     <li className="text-sm text-foreground/80">
