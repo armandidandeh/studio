@@ -135,7 +135,7 @@ export default function AboutSection() {
                   </ul>
                 </div>
 
-                <InnerAccordion type="single" collapsible className="w-full mt-6 pt-4">
+                <InnerAccordion type="single" collapsible className="w-full mt-6 pt-0">
                   <InnerAccordionItem value="download-resume" className="border-none">
                     <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-2 text-foreground/90">
                       Download My Resume
@@ -143,7 +143,7 @@ export default function AboutSection() {
                     <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
                       <div className="flex items-center justify-between">
                         <p className="mb-0 flex-grow">
-                          Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable. Please use the button below to download and view my full resume.
+                          Due to security policies on some file hosting services, direct embedding of PDFs can be unreliable. Please use the button to download and view my full resume.
                         </p>
                         <Button 
                           asChild
