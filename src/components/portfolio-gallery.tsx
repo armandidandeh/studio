@@ -59,13 +59,17 @@ export default function PortfolioGallery() {
     <AccordionItem value="portfolio" className="border-none">
       <Card className="shadow-lg mb-4 overflow-hidden">
         <AccordionTrigger className="p-6 text-left w-full hover:no-underline focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-1 rounded-md [&[data-state=open]>svg]:text-accent">
-          <div className="flex flex-row items-center gap-3">
-            <Zap className="w-8 h-8 text-primary" />
-            <h2 className="font-headline text-3xl text-primary">My Portfolio</h2>
+          <div className="flex flex-col w-full">
+            <div className="flex flex-row items-center gap-3">
+              <Zap className="w-8 h-8 text-primary" />
+              <h2 className="font-headline text-3xl text-primary">My Portfolio</h2>
+            </div>
+            <p className="text-md text-muted-foreground mt-1">
+              A selection of my recent work and personal projects.
+            </p>
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-0">
-          <p className="text-lg text-muted-foreground mb-6 text-center md:text-left">A selection of my recent work and personal projects.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projectsData.map((project, index) => (
               <Card key={project.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
