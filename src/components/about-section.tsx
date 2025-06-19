@@ -46,6 +46,113 @@ export default function AboutSection() {
                     </a>
                   </Button>
                 </div>
+
+                <div className="mt-6 space-y-6">
+                  <h3 className="text-lg font-semibold mt-4 mb-3 text-primary">Recent Work Experience</h3>
+                  
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">MightyHive‌ (pre-merger); Monks‌‌ (post-merger)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">VP, Data & AI Products</strong> [Jan 25-Present]: Built a global product team; Overseeing product development from ideation to deployment.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Sr. ‌Director, ‌Data & Machine Learning Systems</strong> [Jan 22-Dec 24]: Owned enterprise client engagements from scoping, pricing, staffing, to delivery.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Director, Data‌ Solutions‌</strong> [Aug 21-Jan 22]: Owned North American client engagements from scoping, pricing, staffing, to delivery.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Director, Data Solutions</strong> [Feb 21‌-Aug 21]: Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">PredictNow.ai (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Cloud Infrastructure & MLOps Advisor</strong> [Aug 22-Dec 22]: Stayed on as an advisor to expand the product.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Fractional‌ ‌CTO</strong> [Aug 21-May 22]: Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">Naya Labs (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">AI/ML Strategist</strong> [May 22-Dec 22]: Advised on building data and AI products; identified product-market fit.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">FGC Health (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Data Strategist</strong> [May 22-Aug 22]: Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">Linggo (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Fractional CTO</strong> [Nov 19-Apr 20]: Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">SharpestMinds (part-time)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Mentor, Data Science-Data Engineering-MLOps</strong> [Nov 18- Dec 21]: Mentored junior and senior practitioners in building a portfolio and making a career path.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">Deloitte Canada</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Senior Manager, Data Science Innovation & AI Strategy</strong> [Feb 20-Nov 20]: Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Manager, Data Science Innovation</strong> [Sep 18-Feb 20]: Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products. 
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Senior Consultant, Data Science</strong> [May 18-Sep 18]: Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors.
+                      </li>
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Consultant, Data Science</strong> [Sep 17-May 18]: Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-md text-foreground/90">Sport-Travel (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Manager, Analytics & Software Solutions</strong> [May 17-May 18]: Hired and mentored an in-house development team; built a sports competition management system with integrations into an existing accommodations system, allowing team owners to register their teams’ full roster, plan for leagues, manage trips’ transportation and hotels, and get key notifications.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div> {/* Removed mb-4 for the last item */}
+                    <h4 className="font-semibold text-md text-foreground/90">Freelance (part-time; contractor)</h4>
+                    <ul className="list-disc list-inside space-y-1 pl-2 mt-1">
+                      <li className="text-sm text-foreground/80">
+                        <strong className="font-medium">Cloud & Data Consultant</strong> [May 12-Dec 16]: Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors.
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
               </InnerAccordionContent>
             </InnerAccordionItem>
           </InnerAccordion>
