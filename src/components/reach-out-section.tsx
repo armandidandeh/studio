@@ -13,7 +13,7 @@ export default function ReachOutSection() {
         <AccordionTrigger className="p-6 text-left w-full hover:no-underline focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-1 rounded-md [&[data-state=open]>svg]:text-accent">
           <div className="flex flex-row items-center gap-3">
             <MessageSquare className="w-8 h-8 text-primary" />
-            <h2 className="font-headline text-3xl text-primary">Get In Touch</h2>
+            <h2 className="font-headline text-3xl text-primary">Fancy a coffee chat?</h2>
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-0 text-lg text-foreground/80 leading-relaxed">
