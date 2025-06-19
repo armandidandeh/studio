@@ -23,55 +23,14 @@ interface Experience {
   roles: Role[];
 }
 
-// Re-ordered chronologically
 const workExperiencesData: Experience[] = [
-  {
-    company: "Freelance",
-    isContractor: true,
-    isPartTime: true,
-    roles: [
-      { title: "Cloud & Data Consultant", dates: "May 12 - Dec 16", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
-    ],
-  },
-  {
-    company: "Sport-Travel",
-    isContractor: true,
-    isPartTime: true,
-    roles: [
-      { title: "Manager, Analytics & Software Solutions", dates: "May 17 - May 18", description: "Hired and mentored an in-house development team; built a sports competition management system with integrations into an existing accommodations system, allowing team owners to register their teams’ full roster, plan for leagues, manage trips’ transportation and hotels, and get key notifications." },
-    ],
-  },
-  {
-    company: "Deloitte Canada",
-    roles: [
-      { title: "Consultant, Data Science", dates: "Sep 17 - May 18", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
-      { title: "Senior Consultant, Data Science", dates: "May 18 - Sep 18", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
-      { title: "Manager, Data Science Innovation", dates: "Sep 18 - Feb 20", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
-      { title: "Senior Manager, Data Science Innovation & AI Strategy", dates: "Feb 20 - Nov 20", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
-    ],
-  },
-  {
-    company: "SharpestMinds",
-    isPartTime: true,
-    roles: [
-      { title: "Mentor, Data Science-Data Engineering-MLOps", dates: "Nov 18 - Dec 21", description: "Mentored junior and senior practitioners in building a portfolio and making a career path." },
-    ],
-  },
-  {
-    company: "Linggo",
-    isContractor: true,
-    isPartTime: true,
-    roles: [
-      { title: "Fractional CTO", dates: "Nov 19 - Apr 20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
-    ],
-  },
   {
     company: "MightyHive (pre-merger); Monks (post-merger)",
     roles: [
-      { title: "Director, Data Solutions", dates: "Feb 21 - Aug 21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Director, Data Solutions", dates: "Aug 21 - Jan 22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan 22 - Dec 24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
       { title: "VP, Data & AI Products", dates: "Jan 25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
+      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan 22 - Dec 24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Aug 21 - Jan 22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Feb 21 - Aug 21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
     ],
   },
   {
@@ -79,8 +38,8 @@ const workExperiencesData: Experience[] = [
     isContractor: true,
     isPartTime: true,
     roles: [
-      { title: "Fractional CTO", dates: "Aug 21 - May 22", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
       { title: "Cloud Infrastructure & MLOps Advisor", dates: "Aug 22 - Dec 22", description: "Stayed on as an advisor to expand the product." },
+      { title: "Fractional CTO", dates: "Aug 21 - May 22", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
     ],
   },
   {
@@ -97,6 +56,46 @@ const workExperiencesData: Experience[] = [
     isPartTime: true,
     roles: [
       { title: "Data Strategist", dates: "May 22 - Aug 22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
+    ],
+  },
+  {
+    company: "Linggo",
+    isContractor: true,
+    isPartTime: true,
+    roles: [
+      { title: "Fractional CTO", dates: "Nov 19 - Apr 20", description: "Hired and expanded the development team; built an MVP; deployed the product to the first set of clients; planned for a scalable cloud strategy." },
+    ],
+  },
+  {
+    company: "SharpestMinds",
+    isPartTime: true,
+    roles: [
+      { title: "Mentor, Data Science-Data Engineering-MLOps", dates: "Nov 18 - Dec 21", description: "Mentored junior and senior practitioners in building a portfolio and making a career path." },
+    ],
+  },
+  {
+    company: "Deloitte Canada",
+    roles: [
+      { title: "Senior Manager, Data Science Innovation & AI Strategy", dates: "Feb 20 - Nov 20", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
+      { title: "Manager, Data Science Innovation", dates: "Sep 18 - Feb 20", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
+      { title: "Senior Consultant, Data Science", dates: "May 18 - Sep 18", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
+      { title: "Consultant, Data Science", dates: "Sep 17 - May 18", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
+    ],
+  },
+  {
+    company: "Sport-Travel",
+    isContractor: true,
+    isPartTime: true,
+    roles: [
+      { title: "Manager, Analytics & Software Solutions", dates: "May 17 - May 18", description: "Hired and mentored an in-house development team; built a sports competition management system with integrations into an existing accommodations system, allowing team owners to register their teams’ full roster, plan for leagues, manage trips’ transportation and hotels, and get key notifications." },
+    ],
+  },
+  {
+    company: "Freelance",
+    isContractor: true,
+    isPartTime: true,
+    roles: [
+      { title: "Cloud & Data Consultant", dates: "May 12 - Dec 16", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
     ],
   },
 ];
