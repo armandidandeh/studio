@@ -22,10 +22,12 @@ export default function ReachOutSection() {
           </p>
           <Button
             asChild
-            className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 text-md py-3 px-4"
+            size="icon"
+            className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 rounded-full"
+            aria-label="Visit my LinkedIn Profile"
           >
             <a href={linkedInUrl} target="_blank" rel="noopener noreferrer">
-              <Linkedin className="mr-2 h-5 w-5" /> Visit my LinkedIn Profile
+              <Linkedin className="h-5 w-5" />
             </a>
           </Button>
         </AccordionContent>
@@ -33,3 +35,4 @@ export default function ReachOutSection() {
     </AccordionItem>
   );
 }
+
