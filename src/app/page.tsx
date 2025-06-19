@@ -17,24 +17,24 @@ export default function Home() {
       </header>
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="space-y-12 md:space-y-16 lg:space-y-20">
+        <div className="space-y-8 md:space-y-10 lg:space-y-12">
           <section id="about">
             <AboutSection />
           </section>
           
-          <Separator className="my-8 md:my-12 bg-primary/20" />
+          <Separator className="my-6 md:my-8 bg-primary/20" />
 
           <section id="skills">
             <SkillsShowcase />
           </section>
 
-          <Separator className="my-8 md:my-12 bg-primary/20" />
+          <Separator className="my-6 md:my-8 bg-primary/20" />
           
           <section id="resume">
             <ResumeDisplay />
           </section>
 
-          <Separator className="my-8 md:my-12 bg-primary/20" />
+          <Separator className="my-6 md:my-8 bg-primary/20" />
 
           <section id="contact">
             <ContactForm />
