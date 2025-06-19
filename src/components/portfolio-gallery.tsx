@@ -1,7 +1,9 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Zap } from 'lucide-react';
+import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 
 interface Project {
   id: string;
@@ -54,46 +56,51 @@ const projectsData: Project[] = [
 
 export default function PortfolioGallery() {
   return (
-    <section className="animate-fade-in" style={{animationDelay: '0.7s'}}>
-      <header className="mb-8 text-center">
-        <h2 className="font-headline text-4xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
-          <Zap className="w-10 h-10" /> My Portfolio
-        </h2>
-        <p className="text-lg text-muted-foreground">A selection of my recent work and personal projects.</p>
-      </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-        {projectsData.map((project, index) => (
-          <Card key={project.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col animate-fade-in" style={{animationDelay: `${0.8 + index * 0.1}s`}}>
-            <CardHeader className="p-0">
-              <div className="aspect-video relative">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint={project.imageHint}
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="p-6 flex-grow">
-              <CardTitle className="font-headline text-2xl mb-2 text-primary">{project.title}</CardTitle>
-              <CardDescription className="text-md text-foreground/80 mb-4">{project.description}</CardDescription>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map(tag => (
-                  <span key={tag} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{tag}</span>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter className="p-6 pt-0">
-              <Button asChild variant="default" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
-                <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
-                  View Project <ExternalLink className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </section>
+    <AccordionItem value="portfolio" className="border-none">
+      <Card className="shadow-lg mb-4 overflow-hidden">
+        <AccordionTrigger className="p-6 text-left w-full hover:no-underline focus-visible:ring-inset focus-visible:ring-ring focus-visible:ring-1 rounded-md [&[data-state=open]>svg]:text-accent">
+          <div className="flex flex-row items-center gap-3">
+            <Zap className="w-8 h-8 text-primary" />
+            <h2 className="font-headline text-3xl text-primary">My Portfolio</h2>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="p-6 pt-0">
+          <p className="text-lg text-muted-foreground mb-6 text-center md:text-left">A selection of my recent work and personal projects.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projectsData.map((project, index) => (
+              <Card key={project.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+                <CardHeader className="p-0">
+                  <div className="aspect-video relative">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      layout="fill"
+                      objectFit="cover"
+                      data-ai-hint={project.imageHint}
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6 flex-grow">
+                  <CardTitle className="font-headline text-2xl mb-2 text-primary">{project.title}</CardTitle>
+                  <CardDescription className="text-md text-foreground/80 mb-4">{project.description}</CardDescription>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">{tag}</span>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="p-6 pt-0">
+                  <Button asChild variant="default" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
+                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
+                      View Project <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </AccordionContent>
+      </Card>
+    </AccordionItem>
   );
 }

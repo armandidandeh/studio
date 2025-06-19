@@ -5,6 +5,10 @@ import AboutSection from '@/components/about-section';
 import SocialLinks from '@/components/social-links';
 import ContactForm from '@/components/contact-form';
 import ResumeDisplay from '@/components/resume-display';
+import PortfolioGallery from '@/components/portfolio-gallery';
+import {
+  Accordion
+} from "@/components/ui/accordion";
 
 export default function Home() {
   return (
@@ -16,23 +20,13 @@ export default function Home() {
       </header>
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 pb-8 md:pb-12">
-        <div className="space-y-4 md:space-y-6 lg:space-y-8">
-          <section id="about">
-            <AboutSection />
-          </section>
-          
-          <section id="skills">
-            <SkillsShowcase />
-          </section>
-          
-          <section id="resume">
-            <ResumeDisplay />
-          </section>
-
-          <section id="contact">
-            <ContactForm />
-          </section>
-        </div>
+        <Accordion type="single" defaultValue="about" collapsible className="w-full">
+          <AboutSection />
+          <SkillsShowcase />
+          <PortfolioGallery />
+          <ResumeDisplay />
+          <ContactForm />
+        </Accordion>
       </main>
 
       <footer className="py-8 bg-card border-t border-border mt-12 md:mt-16">
