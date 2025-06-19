@@ -9,13 +9,13 @@ import ResumeDisplay from '@/components/resume-display';
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="py-8 md:py-12 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <header className="pt-8 md:pt-12 pb-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <ProfileHeader />
         </div>
       </header>
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 lg:pt-8 pb-8 md:pb-12">
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
           <section id="about">
             <AboutSection />
