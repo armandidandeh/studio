@@ -4,7 +4,7 @@ import SkillsShowcase from '@/components/skills-showcase';
 import AboutSection from '@/components/about-section';
 import SocialLinks from '@/components/social-links';
 import ContactForm from '@/components/contact-form';
-import ResumeDisplay from '@/components/resume-display';
+
 import {
   Accordion
 } from "@/components/ui/accordion";
@@ -22,7 +22,6 @@ export default function Home() {
         <Accordion type="single" defaultValue="about" collapsible className="w-full">
           <AboutSection />
           <SkillsShowcase />
-          <ResumeDisplay />
           <ContactForm />
         </Accordion>
       </main>
