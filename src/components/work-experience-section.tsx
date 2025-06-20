@@ -127,38 +127,81 @@ const parseRoleStartDate = (dateString: string): Date | null => {
       return new Date(year, month, 1);
     }
   }
-  // Handle "Present" or other formats if they appear as start dates explicitly
-  if (startPart.toLowerCase() === 'present') {
-    return new Date(); // Or a very future date if "Present" means ongoing from a past start
-  }
   return null;
 };
 
-const sortedExperiences = [...workExperiencesData].sort((a, b) => {
-  let maxStartDateA = new Date(0); // Epoch
-  a.roles.forEach(role => {
-    const startDate = parseRoleStartDate(role.dates);
-    if (startDate && startDate > maxStartDateA) {
-      maxStartDateA = startDate;
-    }
+const sortExperiences = (experiences: Experience[]): Experience[] => {
+  return [...experiences].sort((a, b) => {
+    let maxStartDateA = new Date(0);
+    a.roles.forEach(role => {
+      const startDate = parseRoleStartDate(role.dates);
+      if (startDate && startDate > maxStartDateA) {
+        maxStartDateA = startDate;
+      }
+    });
+
+    let maxStartDateB = new Date(0);
+    b.roles.forEach(role => {
+      const startDate = parseRoleStartDate(role.dates);
+      if (startDate && startDate > maxStartDateB) {
+        maxStartDateB = startDate;
+      }
+    });
+
+    return maxStartDateB.getTime() - maxStartDateA.getTime();
   });
+};
 
-  let maxStartDateB = new Date(0); // Epoch
-  b.roles.forEach(role => {
-    const startDate = parseRoleStartDate(role.dates);
-    if (startDate && startDate > maxStartDateB) {
-      maxStartDateB = startDate;
-    }
-  });
-
-  if (maxStartDateB < maxStartDateA) return -1;
-  if (maxStartDateB > maxStartDateA) return 1;
-  return 0; // Keep original relative order for ties in max start date
-});
-
+const TimelineSection = ({ title, experiences }: { title: string, experiences: Experience[] }) => (
+  <div>
+    <h3 className="font-headline text-2xl text-primary mb-8">{title}</h3>
+    <div className="relative">
+      <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
+      <div className="space-y-10 relative z-10">
+        {experiences.map((experience, expIndex) => (
+          <div key={expIndex} className="relative">
+            <div className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-[0.375rem] left-[0.5rem] md:left-[0.875rem]" />
+            <div className="absolute z-10 top-[0.25rem] left-[2.5rem] md:left-[3rem]">
+              <p className="text-xs text-muted-foreground whitespace-nowrap">
+                {experience.timelineDateLabel}
+              </p>
+            </div>
+            <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-20 md:ml-24">
+              <CardHeader className="pb-4 pt-5">
+                <CardTitle className="text-xl font-headline text-primary">
+                  {experience.company}
+                  {(experience.isContractor || experience.isPartTime) && (
+                    <span className="text-sm font-normal text-muted-foreground ml-2">
+                      ({experience.isContractor && "Contractor"}{experience.isContractor && experience.isPartTime && ", "}{experience.isPartTime && "Part-time"})
+                    </span>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 pb-5">
+                {experience.roles.map((role, roleIndex) => (
+                  <div key={roleIndex}>
+                    <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                    <div className="flex items-center text-xs text-muted-foreground mt-1 mb-1.5">
+                      <CalendarDays className="w-3.5 h-3.5 mr-2 text-primary/70 shrink-0" />
+                      <span>{role.dates}</span>
+                    </div>
+                    <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
+
+  const fullTimeExperiences = sortExperiences(workExperiencesData.filter(exp => !exp.isPartTime && !exp.isContractor));
+  const partTimeExperiences = sortExperiences(workExperiencesData.filter(exp => exp.isPartTime || exp.isContractor));
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -170,53 +213,9 @@ export default function WorkExperienceSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
-          <div className="relative">
-            {/* The vertical timeline line */}
-            <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
-
-            <div className="space-y-10 relative z-10"> {/* Container for all experience items */}
-              {sortedExperiences.map((experience, expIndex) => (
-                <div key={expIndex} className="relative"> {/* Each item container is relative */}
-                  {/* Dot centered on the line. Top-[6px] is 0.375rem */}
-                  <div
-                    className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-[0.375rem] left-[0.5rem] md:left-[0.875rem]"
-                  />
-                  {/* Date Label (company's overall engagement period). Top-[4px] is 0.25rem. Left values: 1.5rem, md:2rem */}
-                  <div
-                    className="absolute z-10 top-[0.25rem] left-[1.5rem] md:left-[2rem]"
-                  >
-                    <p className="text-xs text-muted-foreground whitespace-nowrap">
-                      {experience.timelineDateLabel}
-                    </p>
-                  </div>
-                  {/* Card, with margin to clear the absolute elements. ml-20 is 5rem, md:ml-24 is 6rem */}
-                  <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-20 md:ml-24">
-                    <CardHeader className="pb-4 pt-5">
-                      <CardTitle className="text-xl font-headline text-primary">
-                        {experience.company}
-                        {(experience.isContractor || experience.isPartTime) && (
-                          <span className="text-sm font-normal text-muted-foreground ml-2">
-                            ({experience.isContractor && "Contractor"}{experience.isContractor && experience.isPartTime && ", "}{experience.isPartTime && "Part-time"})
-                          </span>
-                        )}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4 pb-5">
-                      {experience.roles.map((role, roleIndex) => (
-                        <div key={roleIndex}>
-                          <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                          <div className="flex items-center text-xs text-muted-foreground mt-1 mb-1.5">
-                            <CalendarDays className="w-3.5 h-3.5 mr-2 text-primary/70 shrink-0" />
-                            <span>{role.dates}</span>
-                          </div>
-                          <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                        </div>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
+          <div className="space-y-16">
+            <TimelineSection title="Full-time Experience" experiences={fullTimeExperiences} />
+            <TimelineSection title="Part-time & Contract Roles" experiences={partTimeExperiences} />
           </div>
 
           <InnerAccordion type="single" collapsible className="w-full mt-10 pt-0 border-none">
