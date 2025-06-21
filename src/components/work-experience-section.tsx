@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Briefcase, Download, CalendarDays } from 'lucide-react';
+import { cn } from "@/lib/utils";
 
 interface Role {
   title: string;
@@ -22,6 +23,16 @@ interface Experience {
   isPartTime?: boolean;
   roles: Role[];
   timelineDateLabel: string;
+}
+
+interface TimelineRole {
+  company: string;
+  isContractor?: boolean;
+  isPartTime?: boolean;
+  title: string;
+  dates: string;
+  description: string;
+  type: 'full-time' | 'part-time';
 }
 
 const workExperiencesData: Experience[] = [
@@ -130,78 +141,25 @@ const parseRoleStartDate = (dateString: string): Date | null => {
   return null;
 };
 
-const sortExperiences = (experiences: Experience[]): Experience[] => {
-  return [...experiences].sort((a, b) => {
-    let maxStartDateA = new Date(0);
-    a.roles.forEach(role => {
-      const startDate = parseRoleStartDate(role.dates);
-      if (startDate && startDate > maxStartDateA) {
-        maxStartDateA = startDate;
-      }
-    });
-
-    let maxStartDateB = new Date(0);
-    b.roles.forEach(role => {
-      const startDate = parseRoleStartDate(role.dates);
-      if (startDate && startDate > maxStartDateB) {
-        maxStartDateB = startDate;
-      }
-    });
-
-    return maxStartDateB.getTime() - maxStartDateA.getTime();
-  });
-};
-
-const TimelineSection = ({ title, experiences }: { title: string, experiences: Experience[] }) => (
-  <div>
-    <h3 className="font-headline text-2xl text-primary mb-8">{title}</h3>
-    <div className="relative">
-      <div className="absolute left-3.5 top-2 bottom-2 w-1 bg-primary/20 rounded-full z-0 md:left-5" />
-      <div className="space-y-10 relative z-10">
-        {experiences.map((experience, expIndex) => (
-          <div key={expIndex} className="relative">
-            <div className="absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card z-20 top-[0.375rem] left-[0.5rem] md:left-[0.875rem]" />
-            <div className="absolute z-10 top-[0.25rem] left-[2.5rem] md:left-[3rem]">
-              <p className="text-xs text-muted-foreground whitespace-nowrap">
-                {experience.timelineDateLabel}
-              </p>
-            </div>
-            <Card className="flex-1 shadow-md hover:shadow-lg transition-shadow duration-300 min-w-0 ml-20 md:ml-24">
-              <CardHeader className="pb-4 pt-5">
-                <CardTitle className="text-xl font-headline text-primary">
-                  {experience.company}
-                  {(experience.isContractor || experience.isPartTime) && (
-                    <span className="text-sm font-normal text-muted-foreground ml-2">
-                      ({experience.isContractor && "Contractor"}{experience.isContractor && experience.isPartTime && ", "}{experience.isPartTime && "Part-time"})
-                    </span>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 pb-5">
-                {experience.roles.map((role, roleIndex) => (
-                  <div key={roleIndex}>
-                    <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                    <div className="flex items-center text-xs text-muted-foreground mt-1 mb-1.5">
-                      <CalendarDays className="w-3.5 h-3.5 mr-2 text-primary/70 shrink-0" />
-                      <span>{role.dates}</span>
-                    </div>
-                    <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
+const allRoles: TimelineRole[] = workExperiencesData.flatMap(exp => 
+  exp.roles.map(role => ({
+    company: exp.company,
+    isContractor: exp.isContractor,
+    isPartTime: exp.isPartTime,
+    ...role,
+    type: exp.isPartTime || exp.isContractor ? 'part-time' : 'full-time'
+  }))
 );
+
+allRoles.sort((a, b) => {
+  const dateA = parseRoleStartDate(a.dates);
+  const dateB = parseRoleStartDate(b.dates);
+  if (!dateA || !dateB) return 0;
+  return dateB.getTime() - dateA.getTime();
+});
 
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
-
-  const fullTimeExperiences = sortExperiences(workExperiencesData.filter(exp => !exp.isPartTime && !exp.isContractor));
-  const partTimeExperiences = sortExperiences(workExperiencesData.filter(exp => exp.isPartTime || exp.isContractor));
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -213,9 +171,62 @@ export default function WorkExperienceSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
-          <div className="space-y-16">
-            <TimelineSection title="Full-time Experience" experiences={fullTimeExperiences} />
-            <TimelineSection title="Part-time & Contract Roles" experiences={partTimeExperiences} />
+          <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
+            <div className="absolute w-1 h-full top-0 left-1/2 -translate-x-1/2 bg-primary/20 rounded-full hidden md:block" />
+            
+            <div className="space-y-12">
+              {allRoles.map((role, index) => {
+                const isFullTime = role.type === 'full-time';
+                return (
+                  <div key={index} className="md:grid md:grid-cols-2 md:gap-x-12 relative">
+                    <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-0.5 left-1/2 -translate-x-1/2 z-10" />
+                    
+                    {/* Left Column (Part-time & Contract) */}
+                    <div>
+                      {!isFullTime && (
+                        <div className="md:text-right w-full">
+                           <p className="text-xs text-muted-foreground mb-2">{role.dates}</p>
+                           <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <CardHeader className="pb-4 pt-5">
+                              <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                              {(role.isContractor || role.isPartTime) && (
+                                <p className="text-sm font-normal text-muted-foreground -mt-1">
+                                  ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
+                                </p>
+                              )}
+                            </CardHeader>
+                            <CardContent className="space-y-1 pb-5">
+                              <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                              <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                            </CardContent>
+                          </Card>
+                          <div className="h-px bg-border my-8 md:hidden" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Column (Full-time) */}
+                    <div>
+                      {isFullTime && (
+                        <div className="md:text-left w-full">
+                          <p className="text-xs text-muted-foreground mb-2">{role.dates}</p>
+                          <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <CardHeader className="pb-4 pt-5">
+                              <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-1 pb-5">
+                              <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                              <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                            </CardContent>
+                          </Card>
+                           <div className="h-px bg-border my-8 md:hidden" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <InnerAccordion type="single" collapsible className="w-full mt-10 pt-0 border-none">
