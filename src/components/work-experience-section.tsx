@@ -158,6 +158,14 @@ allRoles.sort((a, b) => {
   return dateB.getTime() - dateA.getTime();
 });
 
+const vpIndex = allRoles.findIndex(role => role.title === "VP, Data & AI Products");
+const srDirectorIndex = allRoles.findIndex(role => role.title === "Sr. Director, Data & Machine Learning Systems");
+
+if (vpIndex !== -1 && srDirectorIndex !== -1 && srDirectorIndex > vpIndex + 1) {
+  const [srDirectorRole] = allRoles.splice(srDirectorIndex, 1);
+  allRoles.splice(vpIndex + 1, 0, srDirectorRole);
+}
+
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
 
@@ -174,7 +182,7 @@ export default function WorkExperienceSection() {
           <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
             <div className="absolute w-1 h-full top-0 left-1/2 -translate-x-1/2 bg-primary/20 rounded-full hidden md:block" />
             
-            <div className="space-y-8">
+            <div className="space-y-4">
               {allRoles.map((role, index) => {
                 const isFullTime = role.type === 'full-time';
                 return (
