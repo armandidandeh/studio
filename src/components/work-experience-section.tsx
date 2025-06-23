@@ -174,7 +174,7 @@ export default function WorkExperienceSection() {
           <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
             <div className="absolute w-1 h-full top-0 left-1/2 -translate-x-1/2 bg-primary/20 rounded-full hidden md:block" />
             
-            <div className="space-y-12">
+            <div className="space-y-8">
               {allRoles.map((role, index) => {
                 const isFullTime = role.type === 'full-time';
                 return (
