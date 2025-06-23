@@ -8,8 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Briefcase, Download, CalendarDays } from 'lucide-react';
-import { cn } from "@/lib/utils";
+import { Briefcase, Download } from 'lucide-react';
 
 interface Role {
   title: string;
@@ -209,48 +208,58 @@ export default function WorkExperienceSection() {
               {finalOrderedRoles.map((role, index) => {
                 const isFullTime = role.type === 'full-time';
                 return (
-                  <div key={index} className="md:grid md:grid-cols-2 md:gap-x-12 relative">
-                    <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-0.5 left-1/2 -translate-x-1/2 z-10" />
+                  <div key={index} className="md:grid md:grid-cols-2 md:gap-x-8 relative">
+                    <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-5 left-1/2 -translate-x-1/2 z-10" />
                     
                     {/* Left Column (Part-time & Contract) */}
-                    <div>
+                    <div className="md:pr-4">
                       {!isFullTime && (
-                        <div className="md:text-right w-full">
-                           <p className="text-xs text-muted-foreground mb-2">{role.dates}</p>
-                           <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardHeader className="pb-4 pt-5">
-                              <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                              {(role.isContractor || role.isPartTime) && (
-                                <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                  ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                                </p>
-                              )}
-                            </CardHeader>
-                            <CardContent className="space-y-1 pb-5">
-                              <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                              <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                            </CardContent>
-                          </Card>
-                          <div className="h-px bg-border my-8 md:hidden" />
+                        <div className="md:flex md:justify-end md:items-center md:gap-4">
+                          <div className="w-full">
+                            <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
+                            <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
+                              <CardHeader className="pb-4 pt-5">
+                                <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                                {(role.isContractor || role.isPartTime) && (
+                                  <p className="text-sm font-normal text-muted-foreground -mt-1">
+                                    ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
+                                  </p>
+                                )}
+                              </CardHeader>
+                              <CardContent className="space-y-1 pb-5">
+                                <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                                <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                              </CardContent>
+                            </Card>
+                            <div className="h-px bg-border my-8 md:hidden" />
+                          </div>
+                          <div className="hidden md:block -rotate-90 whitespace-nowrap transform">
+                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
+                          </div>
                         </div>
                       )}
                     </div>
 
                     {/* Right Column (Full-time) */}
-                    <div>
+                    <div className="md:pl-4">
                       {isFullTime && (
-                        <div className="md:text-left w-full">
-                          <p className="text-xs text-muted-foreground mb-2">{role.dates}</p>
-                          <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
-                            <CardHeader className="pb-4 pt-5">
-                              <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-1 pb-5">
-                              <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                              <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                            </CardContent>
-                          </Card>
-                           <div className="h-px bg-border my-8 md:hidden" />
+                        <div className="md:flex md:items-center md:gap-4">
+                          <div className="w-full">
+                            <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
+                            <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
+                              <CardHeader className="pb-4 pt-5">
+                                <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-1 pb-5">
+                                <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                                <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                              </CardContent>
+                            </Card>
+                            <div className="h-px bg-border my-8 md:hidden" />
+                          </div>
+                          <div className="hidden md:block -rotate-90 whitespace-nowrap transform">
+                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
+                          </div>
                         </div>
                       )}
                     </div>
