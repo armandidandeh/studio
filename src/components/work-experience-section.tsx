@@ -199,80 +199,54 @@ export default function WorkExperienceSection() {
             
             <div className="space-y-4">
               {finalOrderedRoles.map((role, index) => {
-                const isFullTime = role.type === 'full-time';
+                const isFullTime = !role.isContractor && !role.isPartTime;
                 const sideClass = isFullTime ? 'md:col-start-2' : '';
                 return (
                   <div key={index} className={`md:grid md:grid-cols-2 md:gap-x-2 relative mb-4`}>
-                    <div className="hidden md:block absolute w-2 h-2 bg-accent rounded-full ring-2 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
+                    <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
                     
                     {/* Left & Right Column Container */}
                     <div className={sideClass}>
-                      <div className="w-full">
-                        <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
-                        
-                        {/* Desktop view: Card and rotated date */}
-                        <div className={`hidden md:flex items-center gap-1 ${isFullTime ? 'flex-row' : 'flex-row-reverse'}`}>
-                            {isFullTime ? (
-                                <>
-                                    <div className="-rotate-90 whitespace-nowrap transform">
-                                        <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
-                                    </div>
-                                    <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 flex-grow">
-                                        <CardHeader className="pb-4 pt-5">
-                                            <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                                            {(role.isContractor || role.isPartTime) && (
-                                            <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                                ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                                            </p>
-                                            )}
-                                        </CardHeader>
-                                        <CardContent className="space-y-1 pb-5">
-                                            <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                                            <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                                        </CardContent>
-                                    </Card>
-                                </>
-                            ) : (
-                                <>
-                                    <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 flex-grow">
-                                        <CardHeader className="pb-4 pt-5">
-                                            <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                                            {(role.isContractor || role.isPartTime) && (
-                                            <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                                ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                                            </p>
-                                            )}
-                                        </CardHeader>
-                                        <CardContent className="space-y-1 pb-5">
-                                            <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                                            <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                                        </CardContent>
-                                    </Card>
-                                    <div className="-rotate-90 whitespace-nowrap transform">
-                                        <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
-                                    </div>
-                                </>
-                            )}
+                      <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
+                      
+                      {/* Desktop view: Card and rotated date */}
+                      <div className={`hidden md:flex items-center gap-1 ${isFullTime ? 'flex-row' : 'flex-row-reverse'}`}>
+                        <div className="-rotate-90 whitespace-nowrap transform">
+                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
                         </div>
-
-                        {/* Mobile view: Unrotated date above card */}
-                        <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 md:hidden">
-                          <CardHeader className="pb-4 pt-5">
-                            <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                            {(role.isContractor || role.isPartTime) && (
-                              <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                              </p>
-                            )}
-                          </CardHeader>
-                          <CardContent className="space-y-1 pb-5">
-                            <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                            <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                          </CardContent>
+                        <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 flex-grow">
+                            <CardHeader className="pb-4 pt-5">
+                                <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                                {(role.isContractor || role.isPartTime) && (
+                                <p className="text-sm font-normal text-muted-foreground -mt-1">
+                                    ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
+                                </p>
+                                )}
+                            </CardHeader>
+                            <CardContent className="space-y-1 pb-5">
+                                <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                                <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                            </CardContent>
                         </Card>
-
-                        <div className="h-px bg-border my-8 md:hidden" />
                       </div>
+
+                      {/* Mobile view: Unrotated date above card */}
+                      <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 md:hidden">
+                        <CardHeader className="pb-4 pt-5">
+                          <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                          {(role.isContractor || role.isPartTime) && (
+                            <p className="text-sm font-normal text-muted-foreground -mt-1">
+                              ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
+                            </p>
+                          )}
+                        </CardHeader>
+                        <CardContent className="space-y-1 pb-5">
+                          <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                          <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                        </CardContent>
+                      </Card>
+
+                      <div className="h-px bg-border my-8 md:hidden" />
                     </div>
                   </div>
                 );
