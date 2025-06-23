@@ -7,8 +7,9 @@ import {
   AccordionTrigger as InnerAccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Briefcase, Download } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 interface Role {
   title: string;
@@ -161,28 +162,17 @@ export default function WorkExperienceSection() {
     return dateB.getTime() - dateA.getTime();
   });
 
-  const companiesToGroupOnRight = [
+  const companiesToGroup = [
     "MightyHive (pre-merger); Monks (post-merger)",
     "Deloitte Canada",
+    "PredictNow.ai",
   ];
 
-  const finalOrderedRoles: TimelineRole[] = [];
   const processedCompanies: string[] = [];
 
-  allRoles.forEach(role => {
-    if (processedCompanies.includes(role.company)) {
-      return; 
-    }
-
-    if (companiesToGroupOnRight.includes(role.company)) {
-      const companyRoles = allRoles.filter(r => r.company === role.company);
-      finalOrderedRoles.push(...companyRoles);
-      processedCompanies.push(role.company);
-    } else {
-      finalOrderedRoles.push(role);
-    }
-  });
-
+  const startYear = 2025;
+  const endYear = 2012;
+  const years = Array.from({ length: startYear - endYear + 1 }, (_, i) => startYear - i);
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -195,55 +185,114 @@ export default function WorkExperienceSection() {
         </AccordionTrigger>
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
           <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
-            <div className="absolute w-1 h-full top-0 left-1/2 -translate-x-1/2 bg-primary/20 rounded-full hidden md:block" />
+            
+            <div className="absolute top-12 bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
+              <div className="w-0.5 h-full bg-primary/20" />
+              <div className="absolute top-0 left-0 w-full h-full">
+                {years.map(year => {
+                  const percentageFromTop = ((startYear - year) / (startYear - endYear)) * 100;
+                  return (
+                    <div
+                      key={year}
+                      className="absolute -translate-x-full"
+                      style={{ top: `${percentageFromTop}%` }}
+                    >
+                      <span className="text-sm font-semibold text-primary/50 pr-4">{year}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
             
             <div className="space-y-4">
-              {finalOrderedRoles.map((role, index) => {
+              {allRoles.map((role, index) => {
+                if (processedCompanies.includes(role.company)) {
+                  return null;
+                }
+
+                const isGroupedCompany = companiesToGroup.includes(role.company);
                 const isFullTime = !role.isContractor && !role.isPartTime;
-                const sideClass = isFullTime ? 'md:col-start-2' : '';
+
+                let cardContent;
+                let dateLabel;
+                let sideClass = isFullTime ? 'md:col-start-2' : '';
+                let flexDirClass = isFullTime ? 'flex-row' : 'flex-row-reverse';
+                
+                if (isGroupedCompany) {
+                  const companyRoles = allRoles.filter(r => r.company === role.company);
+                  processedCompanies.push(role.company);
+
+                  const allDates = companyRoles.map(r => parseRoleStartDate(r.dates)).filter(Boolean) as Date[];
+                  const minDate = new Date(Math.min(...allDates.map(d => d.getTime())));
+                  const maxDate = new Date(Math.max(...allDates.map(d => d.getTime())));
+                  
+                  const startLabel = `${Object.keys(monthMap)[minDate.getMonth()]} '${String(minDate.getFullYear()).slice(2)}`;
+                  const endLabel = maxDate.getFullYear() === new Date().getFullYear() ? 'Present' : `${Object.keys(monthMap)[maxDate.getMonth()]} '${String(maxDate.getFullYear()).slice(2)}`;
+                  dateLabel = `${startLabel} - ${endLabel}`;
+
+                  cardContent = (
+                     companyRoles.map((r, rIndex) => (
+                      <div key={rIndex}>
+                        <CardHeader className="pb-4 pt-5">
+                          {rIndex === 0 && (
+                            <>
+                            <CardTitle className="text-xl font-headline text-primary">{r.company}</CardTitle>
+                            {(r.isContractor || r.isPartTime) && (
+                              <p className="text-sm font-normal text-muted-foreground -mt-1">
+                                ({r.isContractor && "Contractor"}{r.isContractor && r.isPartTime && ", "}{r.isPartTime && "Part-time"})
+                              </p>
+                            )}
+                            </>
+                          )}
+                        </CardHeader>
+                        <CardContent className="space-y-1 pb-5">
+                          <h4 className="font-semibold text-md text-foreground/90">{r.title}</h4>
+                          <CardDescription>{r.dates}</CardDescription>
+                          <p className="text-sm text-foreground/70 leading-normal">{r.description}</p>
+                        </CardContent>
+                        {rIndex < companyRoles.length - 1 && <Separator className="my-2" />}
+                      </div>
+                    ))
+                  );
+
+                } else {
+                  dateLabel = role.dates;
+                  cardContent = (
+                    <>
+                    <CardHeader className="pb-4 pt-5">
+                        <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+                        {(role.isContractor || role.isPartTime) && (
+                        <p className="text-sm font-normal text-muted-foreground -mt-1">
+                            ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
+                        </p>
+                        )}
+                    </CardHeader>
+                    <CardContent className="space-y-1 pb-5">
+                        <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
+                        <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
+                    </CardContent>
+                    </>
+                  );
+                }
+
                 return (
                   <div key={index} className={`md:grid md:grid-cols-2 md:gap-x-2 relative mb-4`}>
                     <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
                     
-                    {/* Left & Right Column Container */}
                     <div className={sideClass}>
-                      <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
+                      <p className="block md:hidden text-xs text-muted-foreground mb-2">{dateLabel}</p>
                       
-                      {/* Desktop view: Card and rotated date */}
-                      <div className={`hidden md:flex items-center gap-1 ${isFullTime ? 'flex-row' : 'flex-row-reverse'}`}>
+                      <div className={`hidden md:flex items-center gap-1 ${flexDirClass}`}>
                         <div className="-rotate-90 whitespace-nowrap transform">
-                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
+                            <p className="text-xs text-muted-foreground tracking-wider">{dateLabel}</p>
                         </div>
                         <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 flex-grow">
-                            <CardHeader className="pb-4 pt-5">
-                                <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                                {(role.isContractor || role.isPartTime) && (
-                                <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                    ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                                </p>
-                                )}
-                            </CardHeader>
-                            <CardContent className="space-y-1 pb-5">
-                                <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                                <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                            </CardContent>
+                          {cardContent}
                         </Card>
                       </div>
 
-                      {/* Mobile view: Unrotated date above card */}
                       <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 md:hidden">
-                        <CardHeader className="pb-4 pt-5">
-                          <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
-                          {(role.isContractor || role.isPartTime) && (
-                            <p className="text-sm font-normal text-muted-foreground -mt-1">
-                              ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                            </p>
-                          )}
-                        </CardHeader>
-                        <CardContent className="space-y-1 pb-5">
-                          <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                          <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                        </CardContent>
+                        {cardContent}
                       </Card>
 
                       <div className="h-px bg-border my-8 md:hidden" />
