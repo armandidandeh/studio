@@ -129,6 +129,7 @@ const parseRoleStartDate = (dateString: string): Date | null => {
   const parts = dateString.split(' - ');
   if (!parts[0]) return null;
   const startPart = parts[0];
+  if (startPart.toLowerCase() === 'present') return new Date();
   const match = startPart.match(/(\w{3})\s'(\d{2})/);
   if (match && match[1] && match[2]) {
     const month = monthMap[match[1]];
@@ -214,7 +215,7 @@ export default function WorkExperienceSection() {
                     {/* Left Column (Part-time & Contract) */}
                     <div className="md:pr-4">
                       {!isFullTime && (
-                        <div className="md:flex md:justify-end md:items-center md:gap-4">
+                        <div className="md:flex md:justify-end md:items-center md:gap-2">
                           <div className="w-full">
                             <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
                             <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -243,7 +244,7 @@ export default function WorkExperienceSection() {
                     {/* Right Column (Full-time) */}
                     <div className="md:pl-4">
                       {isFullTime && (
-                        <div className="md:flex md:items-center md:gap-4">
+                        <div className="md:flex md:items-center md:gap-2">
                           <div className="hidden md:block -rotate-90 whitespace-nowrap transform">
                             <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
                           </div>
