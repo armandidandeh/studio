@@ -141,33 +141,56 @@ const parseRoleStartDate = (dateString: string): Date | null => {
   return null;
 };
 
-const allRoles: TimelineRole[] = workExperiencesData.flatMap(exp => 
-  exp.roles.map(role => ({
-    company: exp.company,
-    isContractor: exp.isContractor,
-    isPartTime: exp.isPartTime,
-    ...role,
-    type: exp.isPartTime || exp.isContractor ? 'part-time' : 'full-time'
-  }))
-);
-
-allRoles.sort((a, b) => {
-  const dateA = parseRoleStartDate(a.dates);
-  const dateB = parseRoleStartDate(b.dates);
-  if (!dateA || !dateB) return 0;
-  return dateB.getTime() - dateA.getTime();
-});
-
-const vpIndex = allRoles.findIndex(role => role.title === "VP, Data & AI Products");
-const srDirectorIndex = allRoles.findIndex(role => role.title === "Sr. Director, Data & Machine Learning Systems");
-
-if (vpIndex !== -1 && srDirectorIndex !== -1 && srDirectorIndex > vpIndex + 1) {
-  const [srDirectorRole] = allRoles.splice(srDirectorIndex, 1);
-  allRoles.splice(vpIndex + 1, 0, srDirectorRole);
-}
-
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
+
+  const allRoles: TimelineRole[] = workExperiencesData.flatMap(exp => 
+    exp.roles.map(role => ({
+      company: exp.company,
+      isContractor: exp.isContractor,
+      isPartTime: exp.isPartTime,
+      ...role,
+      type: (exp.isPartTime || exp.isContractor) ? 'part-time' : 'full-time'
+    }))
+  );
+
+  allRoles.sort((a, b) => {
+    const dateA = parseRoleStartDate(a.dates);
+    const dateB = parseRoleStartDate(b.dates);
+    if (!dateA || !dateB) return 0;
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  const companiesToGroup = [
+    "MightyHive (pre-merger); Monks (post-merger)",
+    "Deloitte Canada",
+  ];
+
+  const finalOrderedRoles: TimelineRole[] = [];
+  const remainingRoles = [...allRoles];
+
+  while (remainingRoles.length > 0) {
+      const currentRole = remainingRoles.shift();
+      if (!currentRole) continue;
+
+      finalOrderedRoles.push(currentRole);
+
+      const companyToGroupIndex = companiesToGroup.indexOf(currentRole.company);
+
+      if (companyToGroupIndex > -1) {
+          const companyName = companiesToGroup[companyToGroupIndex];
+          const otherCompanyRoles = remainingRoles.filter(r => r.company === companyName);
+          
+          finalOrderedRoles.push(...otherCompanyRoles);
+          
+          for (let i = remainingRoles.length - 1; i >= 0; i--) {
+              if (remainingRoles[i].company === companyName) {
+                  remainingRoles.splice(i, 1);
+              }
+          }
+          companiesToGroup.splice(companyToGroupIndex, 1);
+      }
+  }
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -183,7 +206,7 @@ export default function WorkExperienceSection() {
             <div className="absolute w-1 h-full top-0 left-1/2 -translate-x-1/2 bg-primary/20 rounded-full hidden md:block" />
             
             <div className="space-y-4">
-              {allRoles.map((role, index) => {
+              {finalOrderedRoles.map((role, index) => {
                 const isFullTime = role.type === 'full-time';
                 return (
                   <div key={index} className="md:grid md:grid-cols-2 md:gap-x-12 relative">
