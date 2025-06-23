@@ -244,6 +244,9 @@ export default function WorkExperienceSection() {
                     <div className="md:pl-4">
                       {isFullTime && (
                         <div className="md:flex md:items-center md:gap-4">
+                          <div className="hidden md:block -rotate-90 whitespace-nowrap transform">
+                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
+                          </div>
                           <div className="w-full">
                             <p className="block md:hidden text-xs text-muted-foreground mb-2">{role.dates}</p>
                             <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -256,9 +259,6 @@ export default function WorkExperienceSection() {
                               </CardContent>
                             </Card>
                             <div className="h-px bg-border my-8 md:hidden" />
-                          </div>
-                          <div className="hidden md:block -rotate-90 whitespace-nowrap transform">
-                            <p className="text-xs text-muted-foreground tracking-wider">{role.dates}</p>
                           </div>
                         </div>
                       )}
