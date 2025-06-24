@@ -258,10 +258,6 @@ export default function WorkExperienceSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
-                <FileText className="w-6 h-6" />
-                Contract / Part-Time
-              </h3>
               {renderExperienceColumn(contractExperiences)}
             </div>
             <div>
