@@ -40,28 +40,28 @@ const workExperiencesData: Experience[] = [
     company: "Naya Labs",
     isContractor: true,
     isPartTime: true,
-    timelineDateLabel: "May '22 - Dec '22",
+    timelineDateLabel: "May 2022 - Dec 2022",
     roles: [
-      { title: "AI/ML Strategist", dates: "May '22 - Dec '22", description: "Advised on building data and AI products; identified product-market fit." },
+      { title: "AI/ML Strategist", dates: "May 2022 - Dec 2022", description: "Advised on building data and AI products; identified product-market fit." },
     ],
   },
   {
     company: "FGC Health",
     isContractor: true,
     isPartTime: true,
-    timelineDateLabel: "May '22 - Aug '22",
+    timelineDateLabel: "May 2022 - Aug 2022",
     roles: [
-      { title: "Data Strategist", dates: "May '22 - Aug '22", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
+      { title: "Data Strategist", dates: "May 2022 - Aug 2022", description: "Advised the CTO/CIO with a data strategy to enable data-driven decisions as the company made mergers and acquisitions and required accurate reporting across locations." },
     ],
   },
   {
     company: "PredictNow.ai",
     isContractor: true,
     isPartTime: true,
-    timelineDateLabel: "Aug '21 - Dec '22",
+    timelineDateLabel: "Aug '21 - Dec 2022",
     roles: [
-      { title: "Cloud Infrastructure & MLOps Advisor", dates: "Aug '22 - Dec '22", description: "Stayed on as an advisor to expand the product." },
-      { title: "Fractional CTO", dates: "Aug '21 - May '22", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
+      { title: "Cloud Infrastructure & MLOps Advisor", dates: "Aug 2022 - Dec 2022", description: "Stayed on as an advisor to expand the product." },
+      { title: "Fractional CTO", dates: "Aug '21 - May 2022", description: "Hired and expanded the development team; removed tech debt; scaled product to more clients; reduced cloud bill." },
     ],
   },
   {
@@ -69,8 +69,8 @@ const workExperiencesData: Experience[] = [
     timelineDateLabel: "Feb '21 - Present",
     roles: [
       { title: "VP, Data & AI Products", dates: "Jan '25 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
-      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan '22 - Dec '24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
-      { title: "Director, Data Solutions", dates: "Aug '21 - Jan '22", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Sr. Director, Data & Machine Learning Systems", dates: "Jan 2022 - Dec '24", description: "Owned enterprise client engagements from scoping, pricing, staffing, to delivery." },
+      { title: "Director, Data Solutions", dates: "Aug '21 - Jan 2022", description: "Owned North American client engagements from scoping, pricing, staffing, to delivery." },
       { title: "Director, Data Solutions", dates: "Feb '21 - Aug '21", description: "Built a Canada Data team; Owned Canadian client engagements from scoping, pricing, staffing, to delivery." },
     ],
   },
@@ -144,6 +144,16 @@ const parseRoleStartDate = (dateString: string): Date | null => {
 
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
+
+  const formatPresentDate = (dateString: string): string => {
+    if (dateString.endsWith("Present")) {
+      const today = new Date();
+      const month = today.toLocaleString('default', { month: 'short' });
+      const year = String(today.getFullYear()).slice(2);
+      return dateString.replace("Present", `${month} '${year}`);
+    }
+    return dateString;
+  };
 
   const allRoles: TimelineRole[] = workExperiencesData.flatMap(exp => 
     exp.roles.map(role => ({
@@ -227,8 +237,11 @@ export default function WorkExperienceSection() {
                   const maxDate = new Date(Math.max(...allDates.map(d => d.getTime())));
                   
                   const startLabel = `${Object.keys(monthMap)[minDate.getMonth()]} '${String(minDate.getFullYear()).slice(2)}`;
-                  const endLabel = maxDate.getFullYear() === new Date().getFullYear() ? 'Present' : `${Object.keys(monthMap)[maxDate.getMonth()]} '${String(maxDate.getFullYear()).slice(2)}`;
-                  dateLabel = `${startLabel} - ${endLabel}`;
+                  
+                  const hasPresent = companyRoles.some(r => r.dates.includes('Present'));
+                  const endLabel = hasPresent ? 'Present' : `${Object.keys(monthMap)[maxDate.getMonth()]} '${String(maxDate.getFullYear()).slice(2)}`;
+
+                  dateLabel = formatPresentDate(`${startLabel} - ${endLabel}`);
 
                   cardContent = (
                      companyRoles.map((r, rIndex) => (
@@ -247,7 +260,7 @@ export default function WorkExperienceSection() {
                         </CardHeader>
                         <CardContent className="space-y-1 pb-5">
                           <h4 className="font-semibold text-md text-foreground/90">{r.title}</h4>
-                          <CardDescription>{r.dates}</CardDescription>
+                          <CardDescription>{formatPresentDate(r.dates)}</CardDescription>
                           <p className="text-sm text-foreground/70 leading-normal">{r.description}</p>
                         </CardContent>
                         {rIndex < companyRoles.length - 1 && <Separator className="my-2" />}
@@ -256,7 +269,7 @@ export default function WorkExperienceSection() {
                   );
 
                 } else {
-                  dateLabel = role.dates;
+                  dateLabel = formatPresentDate(role.dates);
                   cardContent = (
                     <>
                     <CardHeader className="pb-4 pt-5">
@@ -276,7 +289,7 @@ export default function WorkExperienceSection() {
                 }
 
                 return (
-                  <div key={index} className={`md:grid md:grid-cols-2 md:gap-x-2 relative mb-4`}>
+                  <div key={index} className={'md:grid md:grid-cols-2 md:gap-x-2 relative mb-4'}>
                     <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
                     
                     <div className={sideClass}>
