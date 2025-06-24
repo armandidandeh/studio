@@ -177,12 +177,8 @@ export default function WorkExperienceSection() {
   contractExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
   fullTimeExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
 
-  const renderExperienceColumn = (experiences: Experience[], type: 'contract' | 'full-time') => (
+  const renderExperienceColumn = (experiences: Experience[]) => (
     <div className="flex flex-col gap-4">
-       <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
-        {type === 'contract' ? <FileText /> : <CheckCircle />}
-        {type === 'contract' ? 'Contract / Part-Time' : 'Full-Time'}
-      </h3>
       {experiences.map((exp) => (
         <Card key={exp.id} className="flex flex-col bg-card/50">
           <CardHeader className="p-4">
@@ -276,8 +272,8 @@ export default function WorkExperienceSection() {
           )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {renderExperienceColumn(contractExperiences, 'contract')}
-            {renderExperienceColumn(fullTimeExperiences, 'full-time')}
+            {renderExperienceColumn(contractExperiences)}
+            {renderExperienceColumn(fullTimeExperiences)}
           </div>
           
           {mentorshipExperienceData && (
