@@ -204,16 +204,16 @@ export default function WorkExperienceSection() {
                         <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Building className="w-4 h-4" />
-                          <span>
-                            {role.company}
-                            <span className="ml-2 text-xs font-normal">
-                              ({role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"})
-                            </span>
-                          </span>
+                          <span>{role.company}</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <CalendarDays className="w-4 h-4" />
-                          <span>{formatPresentDate(role.dates)}</span>
+                          <span>
+                            <span className="mr-2 text-xs font-normal">
+                              ({role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"})
+                            </span>
+                            {formatPresentDate(role.dates)}
+                          </span>
                         </div>
                       </div>
                     </InnerAccordionTrigger>
