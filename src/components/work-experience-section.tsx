@@ -225,7 +225,6 @@ export default function WorkExperienceSection() {
               </InnerAccordion>
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-headline text-primary text-center mb-4">Full-Time</h3>
               <InnerAccordion type="single" collapsible className="w-full space-y-2">
                 {fullTimeRoles.map((role, index) => (
                   <InnerAccordionItem value={`role-ft-${index}`} key={`ft-${index}`} className="border rounded-lg overflow-hidden bg-card/50">
