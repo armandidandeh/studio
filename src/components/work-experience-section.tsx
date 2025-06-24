@@ -209,10 +209,10 @@ export default function WorkExperienceSection() {
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <CalendarDays className="w-4 h-4" />
                           <span>
-                            <span className="mr-2 text-xs font-normal">
+                            {formatPresentDate(role.dates)}
+                            <span className="ml-2 text-xs font-normal">
                               ({role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"})
                             </span>
-                            {formatPresentDate(role.dates)}
                           </span>
                         </div>
                       </div>
