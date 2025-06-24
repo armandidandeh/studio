@@ -205,11 +205,11 @@ export default function WorkExperienceSection() {
                         <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Building className="w-4 h-4" />
-                          <span>{role.company}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-xs font-medium text-secondary-foreground">
-                          <span className="bg-secondary px-2 py-0.5 rounded-full">
-                            {role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"}
+                          <span>
+                            {role.company}
+                            <span className="ml-2 text-xs font-normal">
+                              ({role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"})
+                            </span>
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
