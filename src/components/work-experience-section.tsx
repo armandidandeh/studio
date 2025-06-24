@@ -191,24 +191,22 @@ export default function WorkExperienceSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="px-6 pt-2 pb-6 text-lg text-foreground/80 leading-relaxed">
-          <InnerAccordion type="single" collapsible className="w-full space-y-2">
+          <InnerAccordion type="single" collapsible className="w-1/3 mx-auto space-y-2">
             {allRoles.map((role, index) => (
               <InnerAccordionItem value={`role-${index}`} key={index} className="border rounded-lg overflow-hidden bg-card/50">
                 <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between w-full gap-2 md:gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
-                        <Building className="w-4 h-4" />
-                        <span>{role.company}</span>
-                        {(role.isContractor || role.isPartTime) && (
-                          <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
-                            {role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"}
-                          </span>
-                        )}
-                      </div>
+                  <div className="w-full text-left space-y-1">
+                    <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Building className="w-4 h-4" />
+                      <span>{role.company}</span>
+                      {(role.isContractor || role.isPartTime) && (
+                        <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
+                          {role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"}
+                        </span>
+                      )}
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground self-start md:self-center flex-shrink-0">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                        <CalendarDays className="w-4 h-4" />
                        <span>{formatPresentDate(role.dates)}</span>
                     </div>
@@ -221,7 +219,7 @@ export default function WorkExperienceSection() {
             ))}
           </InnerAccordion>
           
-          <InnerAccordion type="single" collapsible className="w-full mt-8 pt-0 border-t border-border">
+          <InnerAccordion type="single" collapsible className="w-1/3 mx-auto mt-8 pt-0 border-t border-border">
             <InnerAccordionItem value="download-resume" className="border-none">
               <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-3 text-foreground/90 hover:no-underline">
                 Download My Resume
