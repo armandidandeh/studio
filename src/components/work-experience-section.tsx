@@ -1,4 +1,5 @@
 
+import type { ReactNode } from 'react';
 import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import {
   Accordion as InnerAccordion,
@@ -17,7 +18,8 @@ interface Role {
 }
 
 interface Experience {
-  company: string;
+  id: string;
+  company: string | ReactNode;
   isContractor?: boolean;
   isPartTime?: boolean;
   roles: Role[];
@@ -26,6 +28,7 @@ interface Experience {
 
 const workExperiencesData: Experience[] = [
   {
+    id: 'naya-labs',
     company: "Naya Labs",
     isContractor: true,
     isPartTime: true,
@@ -35,6 +38,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'fgc-health',
     company: "FGC Health",
     isContractor: true,
     isPartTime: true,
@@ -44,6 +48,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'predictnow-ai',
     company: "PredictNow.ai",
     isContractor: true,
     isPartTime: true,
@@ -54,7 +59,12 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
-    company: "MightyHive (pre-merger); Monks (post-merger)",
+    id: 'mightyhive-monks',
+    company: (
+      <>
+        MightyHive <span className="text-xs font-normal text-muted-foreground">(pre-merger);</span> Monks <span className="text-xs font-normal text-muted-foreground">(post-merger)</span>
+      </>
+    ),
     timelineDateLabel: "Feb 2021 - Present",
     roles: [
       { title: "VP, Data & AI Products", dates: "Jan 2025 - Present", description: "Built a global product team; Overseeing product development from ideation to deployment." },
@@ -64,6 +74,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'linggo',
     company: "Linggo",
     isContractor: true,
     isPartTime: true,
@@ -73,6 +84,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'sharpestminds',
     company: "SharpestMinds",
     isPartTime: true,
     timelineDateLabel: "Nov 2018 - Dec 2021",
@@ -81,6 +93,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'deloitte-canada',
     company: "Deloitte Canada",
     timelineDateLabel: "Sep 2017 - Nov 2020",
     roles: [
@@ -91,6 +104,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'sport-travel',
     company: "Sport-Travel",
     isContractor: true,
     isPartTime: true,
@@ -100,6 +114,7 @@ const workExperiencesData: Experience[] = [
     ],
   },
   {
+    id: 'freelance',
     company: "Freelance",
     isContractor: true,
     isPartTime: true,
@@ -144,9 +159,9 @@ const parseRoleStartDate = (dateString: string): Date | null => {
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
 
-  const freelanceExperienceData = workExperiencesData.find(exp => exp.company === "Freelance");
-  const mentorshipExperienceData = workExperiencesData.find(exp => exp.company === "SharpestMinds");
-  const otherExperiencesData = workExperiencesData.filter(exp => exp.company !== "Freelance" && exp.company !== "SharpestMinds");
+  const freelanceExperienceData = workExperiencesData.find(exp => exp.id === "freelance");
+  const mentorshipExperienceData = workExperiencesData.find(exp => exp.id === "sharpestminds");
+  const otherExperiencesData = workExperiencesData.filter(exp => exp.id !== "freelance" && exp.id !== "sharpestminds");
 
   const contractExperiences = otherExperiencesData.filter(exp => exp.isContractor || exp.isPartTime);
   const fullTimeExperiences = otherExperiencesData.filter(exp => !exp.isContractor && !exp.isPartTime);
@@ -162,10 +177,14 @@ export default function WorkExperienceSection() {
   contractExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
   fullTimeExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
 
-  const renderExperienceColumn = (experiences: Experience[]) => (
+  const renderExperienceColumn = (experiences: Experience[], type: 'contract' | 'full-time') => (
     <div className="flex flex-col gap-4">
+       <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
+        {type === 'contract' ? <FileText /> : <CheckCircle />}
+        {type === 'contract' ? 'Contract / Part-Time' : 'Full-Time'}
+      </h3>
       {experiences.map((exp) => (
-        <Card key={exp.company} className="flex flex-col bg-card/50">
+        <Card key={exp.id} className="flex flex-col bg-card/50">
           <CardHeader className="p-4">
             <div className="flex items-center gap-2">
               <Building className="w-5 h-5 text-primary" />
@@ -176,8 +195,8 @@ export default function WorkExperienceSection() {
             <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-2">
               {exp.roles.map((role, roleIndex) => (
                 <InnerAccordionItem
-                  key={`${exp.company}-role-${roleIndex}`}
-                  value={`role-${exp.company}-${roleIndex}`}
+                  key={`${exp.id}-role-${roleIndex}`}
+                  value={`role-${exp.id}-${roleIndex}`}
                   className="border rounded-md overflow-hidden bg-background/50"
                 >
                   <InnerAccordionTrigger className="p-3 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
@@ -218,7 +237,7 @@ export default function WorkExperienceSection() {
         <AccordionContent className="px-6 pt-2 pb-6 text-lg text-foreground/80 leading-relaxed">
           {freelanceExperienceData && (
             <div className="mb-8">
-              <Card key={freelanceExperienceData.company} className="flex flex-col bg-card/50">
+              <Card key={freelanceExperienceData.id} className="flex flex-col bg-card/50">
                 <CardHeader className="p-4">
                    <div className="flex items-center gap-2">
                     <Building className="w-5 h-5 text-primary" />
@@ -229,8 +248,8 @@ export default function WorkExperienceSection() {
                   <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-2">
                     {freelanceExperienceData.roles.map((role, roleIndex) => (
                       <InnerAccordionItem
-                        key={`${freelanceExperienceData.company}-role-${roleIndex}`}
-                        value={`role-${freelanceExperienceData.company}-${roleIndex}`}
+                        key={`${freelanceExperienceData.id}-role-${roleIndex}`}
+                        value={`role-${freelanceExperienceData.id}-${roleIndex}`}
                         className="border rounded-md overflow-hidden bg-background/50"
                       >
                         <InnerAccordionTrigger className="p-3 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
@@ -257,17 +276,13 @@ export default function WorkExperienceSection() {
           )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              {renderExperienceColumn(contractExperiences)}
-            </div>
-            <div>
-              {renderExperienceColumn(fullTimeExperiences)}
-            </div>
+            {renderExperienceColumn(contractExperiences, 'contract')}
+            {renderExperienceColumn(fullTimeExperiences, 'full-time')}
           </div>
           
           {mentorshipExperienceData && (
             <div className="my-8">
-              <Card key={mentorshipExperienceData.company} className="flex flex-col bg-card/50">
+              <Card key={mentorshipExperienceData.id} className="flex flex-col bg-card/50">
                 <CardHeader className="p-4">
                   <div className="flex items-center gap-2">
                     <Building className="w-5 h-5 text-primary" />
@@ -278,8 +293,8 @@ export default function WorkExperienceSection() {
                   <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-2">
                     {mentorshipExperienceData.roles.map((role, roleIndex) => (
                       <InnerAccordionItem
-                        key={`${mentorshipExperienceData.company}-role-${roleIndex}`}
-                        value={`role-${mentorshipExperienceData.company}-${roleIndex}`}
+                        key={`${mentorshipExperienceData.id}-role-${roleIndex}`}
+                        value={`role-${mentorshipExperienceData.id}-${roleIndex}`}
                         className="border rounded-md overflow-hidden bg-background/50"
                       >
                         <InnerAccordionTrigger className="p-3 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
