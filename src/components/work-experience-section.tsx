@@ -7,7 +7,7 @@ import {
   AccordionTrigger as InnerAccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Card } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Briefcase, Download, Building, CalendarDays } from 'lucide-react';
 
 interface Role {
@@ -168,6 +168,50 @@ export default function WorkExperienceSection() {
     isPartTime: freelanceExperienceData.isPartTime,
   } : null;
 
+  const renderExperienceColumn = (experiences: Experience[]) => (
+    <div className="flex flex-col gap-4">
+      {experiences.map((exp) => (
+        <Card key={exp.company} className="flex flex-col bg-card/50">
+          <CardHeader className="p-4">
+            <div className="flex items-center gap-2">
+              <Building className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-semibold text-primary">{exp.company}</h3>
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 pt-0 flex-grow">
+            <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-2">
+              {exp.roles.map((role, roleIndex) => (
+                <InnerAccordionItem
+                  key={`${exp.company}-role-${roleIndex}`}
+                  value={`role-${exp.company}-${roleIndex}`}
+                  className="border rounded-md overflow-hidden bg-background/50"
+                >
+                  <InnerAccordionTrigger className="p-3 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
+                    <div className="w-full space-y-1">
+                      <h4 className="text-md font-semibold text-primary/90">{role.title}</h4>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <CalendarDays className="w-4 h-4" />
+                        {role.dates}
+                        {(exp.isContractor || exp.isPartTime) && (
+                          <span className="ml-2 text-xs font-normal">
+                            (Contract / Part-Time)
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </InnerAccordionTrigger>
+                  <InnerAccordionContent className="p-3 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background/20">
+                    <p className="pt-3">{role.description}</p>
+                  </InnerAccordionContent>
+                </InnerAccordionItem>
+              ))}
+            </InnerAccordion>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+
   return (
     <AccordionItem value="work-experience" className="border-none">
       <Card className="shadow-lg mb-4 overflow-hidden">
@@ -180,94 +224,44 @@ export default function WorkExperienceSection() {
         <AccordionContent className="px-6 pt-2 pb-6 text-lg text-foreground/80 leading-relaxed">
           {freelanceRole && (
             <div className="mb-8">
-              <InnerAccordion type="single" collapsible className="w-full">
-                <InnerAccordionItem value="freelance-role" className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
-                  <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
-                    <div className="w-full text-left space-y-1">
-                      <h4 className="text-md font-semibold text-primary truncate">{freelanceRole.title}</h4>
-                      <p className="text-sm text-muted-foreground flex items-center gap-2">
-                        <Building className="w-4 h-4" />
-                        {freelanceRole.company}
-                      </p>
-                      <p className="text-sm text-muted-foreground flex items-center gap-2">
-                        <CalendarDays className="w-4 h-4" />
-                        {freelanceRole.dates}
-                        {(freelanceRole.isContractor || freelanceRole.isPartTime) && (
-                          <span className="ml-2 text-xs font-normal">
-                            (Contract / Part-Time)
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </InnerAccordionTrigger>
-                  <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
-                    <p className="pt-4">{freelanceRole.description}</p>
-                  </InnerAccordionContent>
-                </InnerAccordionItem>
-              </InnerAccordion>
+              <Card className="bg-card/50">
+                <CardHeader className="p-4">
+                   <div className="flex items-center gap-2">
+                    <Building className="w-5 h-5 text-primary" />
+                    <h3 className="text-lg font-semibold text-primary">{freelanceRole.company}</h3>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                  <InnerAccordion type="single" collapsible>
+                    <InnerAccordionItem
+                      value="freelance-role"
+                      className="border rounded-md overflow-hidden bg-background/50"
+                    >
+                      <InnerAccordionTrigger className="p-3 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
+                        <div className="w-full space-y-1">
+                          <h4 className="text-md font-semibold text-primary/90">{freelanceRole.title}</h4>
+                          <p className="text-sm text-muted-foreground flex items-center gap-2">
+                            <CalendarDays className="w-4 h-4" />
+                            {freelanceRole.dates}
+                            {(freelanceRole.isContractor || freelanceRole.isPartTime) && (
+                              <span className="ml-2 text-xs font-normal">(Contract / Part-Time)</span>
+                            )}
+                          </p>
+                        </div>
+                      </InnerAccordionTrigger>
+                      <InnerAccordionContent className="p-3 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background/20">
+                        <p className="pt-3">{freelanceRole.description}</p>
+                      </InnerAccordionContent>
+                    </InnerAccordionItem>
+                  </InnerAccordion>
+                </CardContent>
+              </Card>
             </div>
           )}
-
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="lg:col-span-1">
-              <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
-                {contractExperiences.map((exp) => (
-                  <InnerAccordionItem value={`contract-exp-${exp.company}`} key={exp.company} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
-                    <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
-                      <div className="w-full text-left space-y-1">
-                          <h4 className="text-md font-semibold text-primary truncate flex items-center gap-2">
-                              <Building className="w-4 h-4" />{exp.company}
-                          </h4>
-                      </div>
-                    </InnerAccordionTrigger>
-                    <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
-                      {exp.roles.map((role, roleIndex) => (
-                        <div key={role.title + role.dates} className={`pt-4 ${roleIndex > 0 ? 'border-t border-border/50 mt-4' : ''}`}>
-                            <h5 className="font-semibold text-primary">{role.title}</h5>
-                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
-                                <CalendarDays className="w-4 h-4" />
-                                {role.dates}
-                                {(exp.isContractor || exp.isPartTime) && (
-                                    <span className="ml-2 text-xs font-normal">
-                                        (Contract / Part-Time)
-                                    </span>
-                                )}
-                            </p>
-                            <p className="mt-2 text-sm">{role.description}</p>
-                        </div>
-                      ))}
-                    </InnerAccordionContent>
-                  </InnerAccordionItem>
-                ))}
-              </InnerAccordion>
-            </div>
-            <div className="lg:col-span-1">
-              <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
-                {fullTimeExperiences.map((exp) => (
-                  <InnerAccordionItem value={`fulltime-exp-${exp.company}`} key={exp.company} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
-                    <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
-                      <div className="w-full text-left space-y-1">
-                        <h4 className="text-md font-semibold text-primary truncate flex items-center gap-2">
-                            <Building className="w-4 h-4" />{exp.company}
-                        </h4>
-                      </div>
-                    </InnerAccordionTrigger>
-                    <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
-                      {exp.roles.map((role, roleIndex) => (
-                        <div key={role.title + role.dates} className={`pt-4 ${roleIndex > 0 ? 'border-t border-border/50 mt-4' : ''}`}>
-                            <h5 className="font-semibold text-primary">{role.title}</h5>
-                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
-                                <CalendarDays className="w-4 h-4" />
-                                {role.dates}
-                            </p>
-                            <p className="mt-2 text-sm">{role.description}</p>
-                        </div>
-                      ))}
-                    </InnerAccordionContent>
-                  </InnerAccordionItem>
-                ))}
-              </InnerAccordion>
-            </div>
+            {renderExperienceColumn(contractExperiences)}
+            {renderExperienceColumn(fullTimeExperiences)}
           </div>
           
           <InnerAccordion type="single" collapsible className="w-full md:w-2/3 lg:w-1/3 mx-auto mt-8 pt-4 border-t border-border">
