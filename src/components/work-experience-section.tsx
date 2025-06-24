@@ -24,16 +24,6 @@ interface Experience {
   timelineDateLabel: string;
 }
 
-interface TimelineRole {
-  company: string;
-  isContractor?: boolean;
-  isPartTime?: boolean;
-  title: string;
-  dates: string;
-  description: string;
-  type: 'full-time' | 'part-time';
-}
-
 const workExperiencesData: Experience[] = [
   {
     company: "Naya Labs",
@@ -115,7 +105,7 @@ const workExperiencesData: Experience[] = [
     isPartTime: true,
     timelineDateLabel: "May 2012 - Dec 2016",
     roles: [
-      { title: "Cloud & Data Consultant", dates: "May 2012 - Dec 2016", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
+      { title: "Cloud & Data Consultant", dates: "May 2012 - Present", description: "Worked as an Independent Contributor, designing and implementing data pipelines and ML models on major public cloud vendors for clients in different industries and sectors." },
     ],
   },
 ];
@@ -157,32 +147,26 @@ export default function WorkExperienceSection() {
   const freelanceExperienceData = workExperiencesData.find(exp => exp.company === "Freelance");
   const otherExperiencesData = workExperiencesData.filter(exp => exp.company !== "Freelance");
 
+  const contractExperiences = otherExperiencesData.filter(exp => exp.isContractor || exp.isPartTime);
+  const fullTimeExperiences = otherExperiencesData.filter(exp => !exp.isContractor && !exp.isPartTime);
+
+  const getExperienceSortDate = (exp: Experience): Date => {
+    if (exp.roles.length > 0 && exp.roles[0]) {
+      const date = parseRoleStartDate(exp.roles[0].dates);
+      if (date) return date;
+    }
+    return new Date(0); 
+  };
+  
+  contractExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
+  fullTimeExperiences.sort((a, b) => getExperienceSortDate(b).getTime() - getExperienceSortDate(a).getTime());
+
   const freelanceRole = freelanceExperienceData ? {
     ...freelanceExperienceData.roles[0],
     company: freelanceExperienceData.company,
     isContractor: freelanceExperienceData.isContractor,
     isPartTime: freelanceExperienceData.isPartTime,
   } : null;
-
-  const allRoles: TimelineRole[] = otherExperiencesData.flatMap(exp => 
-    exp.roles.map(role => ({
-      company: exp.company,
-      isContractor: exp.isContractor,
-      isPartTime: exp.isPartTime,
-      ...role,
-      type: (exp.isPartTime || exp.isContractor) ? 'part-time' : 'full-time'
-    }))
-  );
-
-  allRoles.sort((a, b) => {
-    const dateA = parseRoleStartDate(a.dates);
-    const dateB = parseRoleStartDate(b.dates);
-    if (!dateA || !dateB) return 0;
-    return dateB.getTime() - dateA.getTime();
-  });
-  
-  const contractRoles = allRoles.filter(role => role.type === 'part-time');
-  const fullTimeRoles = allRoles.filter(role => role.type === 'full-time');
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -225,45 +209,60 @@ export default function WorkExperienceSection() {
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
+            <div className="lg:col-span-1">
               <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
-                {contractRoles.map((role, index) => (
-                  <InnerAccordionItem value={`contract-role-${index}`} key={`contract-role-${index}`} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
+                {contractExperiences.map((exp) => (
+                  <InnerAccordionItem value={`contract-exp-${exp.company}`} key={exp.company} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
                     <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
                       <div className="w-full text-left space-y-1">
-                        <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
-                        <p className="text-sm text-muted-foreground flex items-center gap-2"><Building className="w-4 h-4" />{role.company}</p>
-                        <p className="text-sm text-muted-foreground flex items-center gap-2">
-                          <CalendarDays className="w-4 h-4" />
-                          {role.dates}
-                          {(role.isContractor || role.isPartTime) && (
-                            <span className="ml-2 text-xs font-normal">
-                              (Contract / Part-Time)
-                            </span>
-                          )}
-                        </p>
+                          <h4 className="text-md font-semibold text-primary truncate flex items-center gap-2">
+                              <Building className="w-4 h-4" />{exp.company}
+                          </h4>
                       </div>
                     </InnerAccordionTrigger>
                     <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
-                      <p className="pt-4">{role.description}</p>
+                      {exp.roles.map((role, roleIndex) => (
+                        <div key={role.title + role.dates} className={`pt-4 ${roleIndex > 0 ? 'border-t border-border/50 mt-4' : ''}`}>
+                            <h5 className="font-semibold text-primary">{role.title}</h5>
+                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                                <CalendarDays className="w-4 h-4" />
+                                {role.dates}
+                                {(exp.isContractor || exp.isPartTime) && (
+                                    <span className="ml-2 text-xs font-normal">
+                                        (Contract / Part-Time)
+                                    </span>
+                                )}
+                            </p>
+                            <p className="mt-2 text-sm">{role.description}</p>
+                        </div>
+                      ))}
                     </InnerAccordionContent>
                   </InnerAccordionItem>
                 ))}
               </InnerAccordion>
             </div>
-            <div>
+            <div className="lg:col-span-1">
               <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
-                {fullTimeRoles.map((role, index) => (
-                  <InnerAccordionItem value={`fulltime-role-${index}`} key={`fulltime-role-${index}`} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
+                {fullTimeExperiences.map((exp) => (
+                  <InnerAccordionItem value={`fulltime-exp-${exp.company}`} key={exp.company} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
                     <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
                       <div className="w-full text-left space-y-1">
-                        <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
-                         <p className="text-sm text-muted-foreground flex items-center gap-2"><Building className="w-4 h-4" />{role.company}</p>
-                        <p className="text-sm text-muted-foreground flex items-center gap-2"><CalendarDays className="w-4 h-4" />{role.dates}</p>
+                        <h4 className="text-md font-semibold text-primary truncate flex items-center gap-2">
+                            <Building className="w-4 h-4" />{exp.company}
+                        </h4>
                       </div>
                     </InnerAccordionTrigger>
                     <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
-                      <p className="pt-4">{role.description}</p>
+                      {exp.roles.map((role, roleIndex) => (
+                        <div key={role.title + role.dates} className={`pt-4 ${roleIndex > 0 ? 'border-t border-border/50 mt-4' : ''}`}>
+                            <h5 className="font-semibold text-primary">{role.title}</h5>
+                            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-2">
+                                <CalendarDays className="w-4 h-4" />
+                                {role.dates}
+                            </p>
+                            <p className="mt-2 text-sm">{role.description}</p>
+                        </div>
+                      ))}
                     </InnerAccordionContent>
                   </InnerAccordionItem>
                 ))}
