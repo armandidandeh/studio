@@ -264,7 +264,7 @@ export default function WorkExperienceSection() {
             {renderExperienceColumn(fullTimeExperiences)}
           </div>
           
-          <div className="flex justify-end mt-8 pt-4 border-t border-border">
+          <div className="flex justify-start mt-8 pt-4 border-t border-border">
             <InnerAccordion type="single" collapsible className="w-full md:w-2/3 lg:w-1/3">
               <InnerAccordionItem value="download-resume" className="border-none">
                 <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-3 text-foreground/90 hover:no-underline">
