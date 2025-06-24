@@ -261,10 +261,6 @@ export default function WorkExperienceSection() {
               {renderExperienceColumn(contractExperiences)}
             </div>
             <div>
-              <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
-                <CheckCircle className="w-6 h-6" />
-                Full-Time
-              </h3>
               {renderExperienceColumn(fullTimeExperiences)}
             </div>
           </div>
