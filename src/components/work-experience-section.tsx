@@ -129,9 +129,21 @@ const monthMap: { [key: string]: number } = {
 const parseRoleStartDate = (dateString: string): Date | null => {
   const parts = dateString.split(' - ');
   if (!parts[0]) return null;
-  const startPart = parts[0];
+  const startPart = parts[0].trim();
   if (startPart.toLowerCase() === 'present') return new Date();
-  const match = startPart.match(/(\w{3})\s'(\d{2})/);
+  
+  // Try "May 2022" format first
+  let match = startPart.match(/(\w{3,})\s(\d{4})/);
+  if (match && match[1] && match[2]) {
+    const month = monthMap[match[1].substring(0,3)];
+    const year = parseInt(match[2], 10);
+     if (month !== undefined && !isNaN(year)) {
+      return new Date(year, month, 1);
+    }
+  }
+
+  // Fallback to "Aug '21" format
+  match = startPart.match(/(\w{3})\s'(\d{2})/);
   if (match && match[1] && match[2]) {
     const month = monthMap[match[1]];
     const year = parseInt(match[2], 10) + 2000;
@@ -182,7 +194,9 @@ export default function WorkExperienceSection() {
 
   const startYear = 2025;
   const endYear = 2012;
-  const years = Array.from({ length: startYear - endYear + 1 }, (_, i) => startYear - i);
+  const totalYears = startYear - endYear;
+  const years = Array.from({ length: totalYears + 1 }, (_, i) => startYear - i);
+  const timelineHeight = totalYears * 120; // A scale factor for the total height
 
   return (
     <AccordionItem value="work-experience" className="border-none">
@@ -196,11 +210,11 @@ export default function WorkExperienceSection() {
         <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
           <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
             
-            <div className="absolute top-12 bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
+            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
               <div className="w-0.5 h-full bg-primary/20" />
               <div className="absolute top-0 left-0 w-full h-full">
                 {years.map(year => {
-                  const percentageFromTop = ((startYear - year) / (startYear - endYear)) * 100;
+                  const percentageFromTop = ((startYear - year) / totalYears) * 100;
                   return (
                     <div
                       key={year}
@@ -214,7 +228,7 @@ export default function WorkExperienceSection() {
               </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="relative md:h-full" style={{ height: `${timelineHeight}px` }}>
               {allRoles.map((role, index) => {
                 if (processedCompanies.includes(role.company)) {
                   return null;
@@ -227,19 +241,19 @@ export default function WorkExperienceSection() {
                 let dateLabel;
                 let sideClass = isFullTime ? 'md:col-start-2' : '';
                 let flexDirClass = isFullTime ? 'flex-row' : 'flex-row-reverse';
+                let mostRecentStartDate: Date | null = null;
                 
                 if (isGroupedCompany) {
                   const companyRoles = allRoles.filter(r => r.company === role.company);
                   processedCompanies.push(role.company);
 
                   const allDates = companyRoles.map(r => parseRoleStartDate(r.dates)).filter(Boolean) as Date[];
-                  const minDate = new Date(Math.min(...allDates.map(d => d.getTime())));
-                  const maxDate = new Date(Math.max(...allDates.map(d => d.getTime())));
+                  mostRecentStartDate = allDates.length > 0 ? new Date(Math.max(...allDates.map(d => d.getTime()))) : null;
+                  const minDate = allDates.length > 0 ? new Date(Math.min(...allDates.map(d => d.getTime()))) : null;
                   
-                  const startLabel = `${Object.keys(monthMap)[minDate.getMonth()]} '${String(minDate.getFullYear()).slice(2)}`;
-                  
+                  const startLabel = minDate ? `${Object.keys(monthMap)[minDate.getMonth()]} '${String(minDate.getFullYear()).slice(2)}` : '';
                   const hasPresent = companyRoles.some(r => r.dates.includes('Present'));
-                  const endLabel = hasPresent ? 'Present' : `${Object.keys(monthMap)[maxDate.getMonth()]} '${String(maxDate.getFullYear()).slice(2)}`;
+                  const endLabel = hasPresent ? 'Present' : (mostRecentStartDate ? `${Object.keys(monthMap)[mostRecentStartDate.getMonth()]} '${String(mostRecentStartDate.getFullYear()).slice(2)}` : '');
 
                   dateLabel = formatPresentDate(`${startLabel} - ${endLabel}`);
 
@@ -269,6 +283,7 @@ export default function WorkExperienceSection() {
                   );
 
                 } else {
+                  mostRecentStartDate = parseRoleStartDate(role.dates);
                   dateLabel = formatPresentDate(role.dates);
                   cardContent = (
                     <>
@@ -288,8 +303,15 @@ export default function WorkExperienceSection() {
                   );
                 }
 
+                let positionStyle: React.CSSProperties = {};
+                if (mostRecentStartDate) {
+                    const yearsFromStart = startYear - (mostRecentStartDate.getFullYear() + mostRecentStartDate.getMonth() / 12);
+                    const topPercentage = (yearsFromStart / totalYears) * 100;
+                    positionStyle = { top: `${topPercentage}%` };
+                }
+
                 return (
-                  <div key={index} className={'md:grid md:grid-cols-2 md:gap-x-2 relative mb-4'}>
+                  <div key={index} className={'md:grid md:grid-cols-2 md:gap-x-2 md:absolute w-full mb-4 md:mb-0'} style={positionStyle}>
                     <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
                     
                     <div className={sideClass}>
