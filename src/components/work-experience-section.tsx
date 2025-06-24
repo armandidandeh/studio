@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Briefcase, Download, Building, CalendarDays } from 'lucide-react';
+import { Briefcase, Download, Building, CalendarDays, FileText, CheckCircle } from 'lucide-react';
 
 interface Role {
   title: string;
@@ -259,9 +259,21 @@ export default function WorkExperienceSection() {
             </div>
           )}
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {renderExperienceColumn(contractExperiences)}
-            {renderExperienceColumn(fullTimeExperiences)}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
+                <FileText className="w-6 h-6" />
+                Contract / Part-Time
+              </h3>
+              {renderExperienceColumn(contractExperiences)}
+            </div>
+            <div>
+              <h3 className="font-headline text-2xl text-primary mb-4 text-center flex items-center justify-center gap-2">
+                <CheckCircle className="w-6 h-6" />
+                Full-Time
+              </h3>
+              {renderExperienceColumn(fullTimeExperiences)}
+            </div>
           </div>
           
           <div className="flex justify-start mt-8 pt-4 border-t border-border">
