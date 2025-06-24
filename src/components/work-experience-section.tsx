@@ -264,28 +264,30 @@ export default function WorkExperienceSection() {
             {renderExperienceColumn(fullTimeExperiences)}
           </div>
           
-          <InnerAccordion type="single" collapsible className="w-full md:w-2/3 lg:w-1/3 mx-auto mt-8 pt-4 border-t border-border">
-            <InnerAccordionItem value="download-resume" className="border-none">
-              <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-3 text-foreground/90 hover:no-underline">
-                Download My Resume
-              </InnerAccordionTrigger>
-              <InnerAccordionContent className="pt-2 pb-2 text-md text-foreground/80">
-                <div className="flex items-center justify-between">
-                  <p className="mb-0 flex-grow mr-4">
-                    Please use the button to download and view my full resume.
-                  </p>
-                  <Button
-                    asChild
-                    className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 flex-shrink-0 ml-4"
-                  >
-                    <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
-                      <Download className="mr-2 h-4 w-4" /> Download PDF
-                    </a>
-                  </Button>
-                </div>
-              </InnerAccordionContent>
-            </InnerAccordionItem>
-          </InnerAccordion>
+          <div className="flex justify-end mt-8 pt-4 border-t border-border">
+            <InnerAccordion type="single" collapsible className="w-full md:w-2/3 lg:w-1/3">
+              <InnerAccordionItem value="download-resume" className="border-none">
+                <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-3 text-foreground/90 hover:no-underline">
+                  Download My Resume
+                </InnerAccordionTrigger>
+                <InnerAccordionContent className="pt-2 pb-2 text-md text-foreground/80">
+                  <div className="flex items-center justify-between">
+                    <p className="mb-0 flex-grow mr-4">
+                      Please use the button to download and view my full resume.
+                    </p>
+                    <Button
+                      asChild
+                      className="bg-slate-700 text-primary-foreground hover:bg-slate-600 shadow-sm transition-transform hover:scale-105 flex-shrink-0 ml-4"
+                    >
+                      <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="mr-2 h-4 w-4" /> Download PDF
+                      </a>
+                    </Button>
+                  </div>
+                </InnerAccordionContent>
+              </InnerAccordionItem>
+            </InnerAccordion>
+          </div>
         </AccordionContent>
       </Card>
     </AccordionItem>
