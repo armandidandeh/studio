@@ -94,9 +94,9 @@ const workExperiencesData: Experience[] = [
     company: "Deloitte Canada",
     timelineDateLabel: "Sep 2017 - Nov 2020",
     roles: [
-      { title: "Senior Manager, Data Science Innovation & AI Strategy", dates: "Feb 2020 - Nov 2020", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
+      { title: "Sr. Manager, Data Science Innovation & AI Strategy", dates: "Feb 2020 - Nov 2020", description: "Hired and trained 12-20 co-op students every quarter; built new MVPs and scaled previous ones within the blockchain, AI, and cloud domain; deployed solutions to Deloitte or client cloud infrastructures; co-led ideation sessions with key internal and external stakeholder to assess product-market fit and define future products." },
       { title: "Manager, Data Science Innovation", dates: "Sep 2018 - Feb 2020", description: "Hired and trained 12-15 co-op students every quarter; rapidly built prototypes and MVPs to assess the readiness of emerging technologies within the blockchain, AI, and cloud domain; ideated with key internal and external stakeholder to assess product-market fit and define future products." },
-      { title: "Senior Consultant, Data Science", dates: "May 2018 - Sep 2018", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
+      { title: "Sr. Consultant, Data Science", dates: "May 2018 - Sep 2018", description: "Rapidly prototyped an MVP for a supermarket shelf monitoring system that used machine learning and state-of-the-art sensors." },
       { title: "Consultant, Data Science", dates: "Sep 2017 - May 2018", description: "Built an MVP for a system that scarped 10Q/10K reports from SEC.gov and saved up-to-date information in an internal database for the M&A and Consulting teams." },
     ],
   },
@@ -154,7 +154,17 @@ const parseRoleStartDate = (dateString: string): Date | null => {
 export default function WorkExperienceSection() {
   const downloadUrl = "https://www.dropbox.com/scl/fi/05w2cjuv2twjy5giibge6/Short-Resume-Arman-Didandeh-2025.PDF?rlkey=q7nfw7m4d4lkuk36yw5m3fl6i&st=pptaoxgq&dl=1";
 
-  const allRoles: TimelineRole[] = workExperiencesData.flatMap(exp => 
+  const freelanceExperienceData = workExperiencesData.find(exp => exp.company === "Freelance");
+  const otherExperiencesData = workExperiencesData.filter(exp => exp.company !== "Freelance");
+
+  const freelanceRole = freelanceExperienceData ? {
+    ...freelanceExperienceData.roles[0],
+    company: freelanceExperienceData.company,
+    isContractor: freelanceExperienceData.isContractor,
+    isPartTime: freelanceExperienceData.isPartTime,
+  } : null;
+
+  const allRoles: TimelineRole[] = otherExperiencesData.flatMap(exp => 
     exp.roles.map(role => ({
       company: exp.company,
       isContractor: exp.isContractor,
@@ -184,9 +194,39 @@ export default function WorkExperienceSection() {
           </div>
         </AccordionTrigger>
         <AccordionContent className="px-6 pt-2 pb-6 text-lg text-foreground/80 leading-relaxed">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            <div className="lg:col-span-2">
-              <InnerAccordion type="single" collapsible className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {freelanceRole && (
+            <div className="mb-8">
+              <InnerAccordion type="single" collapsible className="w-full">
+                <InnerAccordionItem value="freelance-role" className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
+                  <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
+                    <div className="w-full text-left space-y-1">
+                      <h4 className="text-md font-semibold text-primary truncate">{freelanceRole.title}</h4>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <Building className="w-4 h-4" />
+                        {freelanceRole.company}
+                      </p>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <CalendarDays className="w-4 h-4" />
+                        {freelanceRole.dates}
+                        {(freelanceRole.isContractor || freelanceRole.isPartTime) && (
+                          <span className="ml-2 text-xs font-normal">
+                            (Contract / Part-Time)
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </InnerAccordionTrigger>
+                  <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
+                    <p className="pt-4">{freelanceRole.description}</p>
+                  </InnerAccordionContent>
+                </InnerAccordionItem>
+              </InnerAccordion>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
                 {contractRoles.map((role, index) => (
                   <InnerAccordionItem value={`contract-role-${index}`} key={`contract-role-${index}`} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
                     <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors h-full items-start flex-grow">
@@ -211,7 +251,7 @@ export default function WorkExperienceSection() {
                 ))}
               </InnerAccordion>
             </div>
-            <div className="lg:col-span-1">
+            <div>
               <InnerAccordion type="single" collapsible className="w-full flex flex-col gap-4">
                 {fullTimeRoles.map((role, index) => (
                   <InnerAccordionItem value={`fulltime-role-${index}`} key={`fulltime-role-${index}`} className="border rounded-lg overflow-hidden bg-card/50 flex flex-col">
