@@ -7,9 +7,8 @@ import {
   AccordionTrigger as InnerAccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Briefcase, Download } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import { Card } from '@/components/ui/card';
+import { Briefcase, Download, Building, CalendarDays } from 'lucide-react';
 
 interface Role {
   title: string;
@@ -132,7 +131,6 @@ const parseRoleStartDate = (dateString: string): Date | null => {
   const startPart = parts[0].trim();
   if (startPart.toLowerCase() === 'present') return new Date();
   
-  // Try "May 2022" format first
   let match = startPart.match(/(\w{3,})\s(\d{4})/);
   if (match && match[1] && match[2]) {
     const month = monthMap[match[1].substring(0,3)];
@@ -142,7 +140,6 @@ const parseRoleStartDate = (dateString: string): Date | null => {
     }
   }
 
-  // Fallback to "Aug '21" format
   match = startPart.match(/(\w{3})\s'(\d{2})/);
   if (match && match[1] && match[2]) {
     const month = monthMap[match[1]];
@@ -184,20 +181,6 @@ export default function WorkExperienceSection() {
     return dateB.getTime() - dateA.getTime();
   });
 
-  const companiesToGroup = [
-    "MightyHive (pre-merger); Monks (post-merger)",
-    "Deloitte Canada",
-    "PredictNow.ai",
-  ];
-
-  const processedCompanies: string[] = [];
-
-  const startYear = 2025;
-  const endYear = 2012;
-  const totalYears = startYear - endYear;
-  const years = Array.from({ length: totalYears + 1 }, (_, i) => startYear - i);
-  const timelineHeight = totalYears * 120; // A scale factor for the total height
-
   return (
     <AccordionItem value="work-experience" className="border-none">
       <Card className="shadow-lg mb-4 overflow-hidden">
@@ -207,143 +190,43 @@ export default function WorkExperienceSection() {
             <h2 className="font-headline text-3xl text-primary">Work Experience</h2>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="p-6 pt-2 text-lg text-foreground/80 leading-relaxed">
-          <div className="relative max-w-5xl mx-auto py-12 px-2 md:px-4">
-            
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
-              <div className="w-0.5 h-full bg-primary/20" />
-              <div className="absolute top-0 left-0 w-full h-full">
-                {years.map(year => {
-                  const percentageFromTop = ((startYear - year) / totalYears) * 100;
-                  return (
-                    <div
-                      key={year}
-                      className="absolute -translate-x-full"
-                      style={{ top: `${percentageFromTop}%` }}
-                    >
-                      <span className="text-sm font-semibold text-primary/50 pr-4">{year}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="relative md:h-full" style={{ height: `${timelineHeight}px` }}>
-              {allRoles.map((role, index) => {
-                if (processedCompanies.includes(role.company)) {
-                  return null;
-                }
-
-                const isGroupedCompany = companiesToGroup.includes(role.company);
-                const isFullTime = !role.isContractor && !role.isPartTime;
-
-                let cardContent;
-                let dateLabel;
-                let sideClass = isFullTime ? 'md:col-start-2' : '';
-                let flexDirClass = isFullTime ? 'flex-row' : 'flex-row-reverse';
-                let mostRecentStartDate: Date | null = null;
-                
-                if (isGroupedCompany) {
-                  const companyRoles = allRoles.filter(r => r.company === role.company);
-                  processedCompanies.push(role.company);
-
-                  const allDates = companyRoles.map(r => parseRoleStartDate(r.dates)).filter(Boolean) as Date[];
-                  mostRecentStartDate = allDates.length > 0 ? new Date(Math.max(...allDates.map(d => d.getTime()))) : null;
-                  const minDate = allDates.length > 0 ? new Date(Math.min(...allDates.map(d => d.getTime()))) : null;
-                  
-                  const startLabel = minDate ? `${Object.keys(monthMap)[minDate.getMonth()]} '${String(minDate.getFullYear()).slice(2)}` : '';
-                  const hasPresent = companyRoles.some(r => r.dates.includes('Present'));
-                  const endLabel = hasPresent ? 'Present' : (mostRecentStartDate ? `${Object.keys(monthMap)[mostRecentStartDate.getMonth()]} '${String(mostRecentStartDate.getFullYear()).slice(2)}` : '');
-
-                  dateLabel = formatPresentDate(`${startLabel} - ${endLabel}`);
-
-                  cardContent = (
-                     companyRoles.map((r, rIndex) => (
-                      <div key={rIndex}>
-                        <CardHeader className="pb-4 pt-5">
-                          {rIndex === 0 && (
-                            <>
-                            <CardTitle className="text-xl font-headline text-primary">{r.company}</CardTitle>
-                            {(r.isContractor || r.isPartTime) && (
-                              <p className="text-sm font-normal text-muted-foreground -mt-1">
-                                ({r.isContractor && "Contractor"}{r.isContractor && r.isPartTime && ", "}{r.isPartTime && "Part-time"})
-                              </p>
-                            )}
-                            </>
-                          )}
-                        </CardHeader>
-                        <CardContent className="space-y-1 pb-5">
-                          <h4 className="font-semibold text-md text-foreground/90">{r.title}</h4>
-                          <CardDescription>{formatPresentDate(r.dates)}</CardDescription>
-                          <p className="text-sm text-foreground/70 leading-normal">{r.description}</p>
-                        </CardContent>
-                        {rIndex < companyRoles.length - 1 && <Separator className="my-2" />}
-                      </div>
-                    ))
-                  );
-
-                } else {
-                  mostRecentStartDate = parseRoleStartDate(role.dates);
-                  dateLabel = formatPresentDate(role.dates);
-                  cardContent = (
-                    <>
-                    <CardHeader className="pb-4 pt-5">
-                        <CardTitle className="text-xl font-headline text-primary">{role.company}</CardTitle>
+        <AccordionContent className="px-6 pt-2 pb-6 text-lg text-foreground/80 leading-relaxed">
+          <InnerAccordion type="single" collapsible className="w-full space-y-2">
+            {allRoles.map((role, index) => (
+              <InnerAccordionItem value={`role-${index}`} key={index} className="border rounded-lg overflow-hidden bg-card/50">
+                <InnerAccordionTrigger className="p-4 text-left hover:no-underline [&[data-state=open]]:bg-accent/10 transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between w-full gap-2 md:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-md font-semibold text-primary truncate">{role.title}</h4>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                        <Building className="w-4 h-4" />
+                        <span>{role.company}</span>
                         {(role.isContractor || role.isPartTime) && (
-                        <p className="text-sm font-normal text-muted-foreground -mt-1">
-                            ({role.isContractor && "Contractor"}{role.isContractor && role.isPartTime && ", "}{role.isPartTime && "Part-time"})
-                        </p>
+                          <span className="text-xs font-medium bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
+                            {role.isContractor && "Contract"}{role.isContractor && role.isPartTime && " / "}{role.isPartTime && "Part-time"}
+                          </span>
                         )}
-                    </CardHeader>
-                    <CardContent className="space-y-1 pb-5">
-                        <h4 className="font-semibold text-md text-foreground/90">{role.title}</h4>
-                        <p className="text-sm text-foreground/70 leading-normal">{role.description}</p>
-                    </CardContent>
-                    </>
-                  );
-                }
-
-                let positionStyle: React.CSSProperties = {};
-                if (mostRecentStartDate) {
-                    const yearsFromStart = startYear - (mostRecentStartDate.getFullYear() + mostRecentStartDate.getMonth() / 12);
-                    const topPercentage = (yearsFromStart / totalYears) * 100;
-                    positionStyle = { top: `${topPercentage}%` };
-                }
-
-                return (
-                  <div key={index} className={'md:grid md:grid-cols-2 md:gap-x-2 md:absolute w-full mb-4 md:mb-0'} style={positionStyle}>
-                    <div className="hidden md:block absolute w-4 h-4 bg-accent rounded-full ring-4 ring-card top-6 left-1/2 -translate-x-1/2 z-10" />
-                    
-                    <div className={sideClass}>
-                      <p className="block md:hidden text-xs text-muted-foreground mb-2">{dateLabel}</p>
-                      
-                      <div className={`hidden md:flex items-center gap-1 ${flexDirClass}`}>
-                        <div className="-rotate-90 whitespace-nowrap transform">
-                            <p className="text-xs text-muted-foreground tracking-wider">{dateLabel}</p>
-                        </div>
-                        <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 flex-grow">
-                          {cardContent}
-                        </Card>
                       </div>
-
-                      <Card className="text-left shadow-md hover:shadow-lg transition-shadow duration-300 md:hidden">
-                        {cardContent}
-                      </Card>
-
-                      <div className="h-px bg-border my-8 md:hidden" />
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground self-start md:self-center flex-shrink-0">
+                       <CalendarDays className="w-4 h-4" />
+                       <span>{formatPresentDate(role.dates)}</span>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <InnerAccordion type="single" collapsible className="w-full mt-10 pt-0 border-none">
+                </InnerAccordionTrigger>
+                <InnerAccordionContent className="p-4 pt-0 text-base text-foreground/70 leading-relaxed border-t border-border bg-background">
+                  <p className="pt-4">{role.description}</p>
+                </InnerAccordionContent>
+              </InnerAccordionItem>
+            ))}
+          </InnerAccordion>
+          
+          <InnerAccordion type="single" collapsible className="w-full mt-8 pt-0 border-t border-border">
             <InnerAccordionItem value="download-resume" className="border-none">
-              <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-2 text-foreground/90 hover:no-underline">
+              <InnerAccordionTrigger className="text-md font-medium hover:text-accent transition-colors py-3 text-foreground/90 hover:no-underline">
                 Download My Resume
               </InnerAccordionTrigger>
-              <InnerAccordionContent className="pt-4 pb-2 text-md text-foreground/80">
+              <InnerAccordionContent className="pt-2 pb-2 text-md text-foreground/80">
                 <div className="flex items-center justify-between">
                   <p className="mb-0 flex-grow mr-4">
                     Please use the button to download and view my full resume.
