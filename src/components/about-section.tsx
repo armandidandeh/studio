@@ -1,7 +1,16 @@
 
 import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Card } from '@/components/ui/card';
-import { UserCircle2 } from 'lucide-react';
+import { UserCircle2, CheckCircle } from 'lucide-react';
+
+const services = [
+  'Data & AI Strategy',
+  'Enterprise Cloud Strategy',
+  'Technical Advisory',
+  'Product Management',
+  'In-house Team Building',
+  'C-Level Mentorship',
+];
 
 export default function AboutSection() {
   return (
@@ -17,6 +26,18 @@ export default function AboutSection() {
           <p className="mb-6">
             Experienced technologist, with hands-on roots in back-end dev and research background in machine learning (semi-supervised learning, specifically), who is very interested in AI-enabled data products and as a result, data pipelines, data/MLOps, and Human-centred AI.
           </p>
+
+          <div className="mt-6 pt-6 border-t border-border/50">
+            <h3 className="font-headline text-xl text-primary mb-4">Available Services</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-base">
+              {services.map((service, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                  <span>{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </AccordionContent>
       </Card>
     </AccordionItem>
